@@ -4,13 +4,13 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const {Photos} = require('./models');
+const {Photos} = require('../models');
 
 router.get('/photos', (req, res) => {
     Photos
       .find()
       .then(photos => {
-        res.json(photos.map(photo => photo.serialize()));
+        res.json(photos.map(photo => photo));
       })
       .catch(err => {
         console.error(err);
@@ -21,7 +21,7 @@ router.get('/photos', (req, res) => {
   router.get('/photos/:id', (req, res) => {
     Photos
       .findById(req.params.id)
-      .then(post => res.json(post.serialize()))
+      .then(photo => res.json(photo))
       .catch(err => {
         console.error(err);
         res.status(500).json({ error: 'something went horribly awry' });
@@ -29,7 +29,7 @@ router.get('/photos', (req, res) => {
   });
   
   router.post('/photos', (req, res) => {
-    const requiredFields = ['photo-url'];
+    const requiredFields = ['photoURL'];
     for (let i = 0; i < requiredFields.length; i++) {
       const field = requiredFields[i];
       if (!(field in req.body)) {
@@ -41,9 +41,9 @@ router.get('/photos', (req, res) => {
   
     Photos
       .create({
-        "photo-url" : req.body.photo-url
+        photoURL : req.body.photoURL
       })
-      .then(photos => res.status(201).json(photos.serialize()))
+      .then(photos => res.status(201).json(photos))
       .catch(err => {
         console.error(err);
         res.status(500).json({ error: 'Something went wrong' });

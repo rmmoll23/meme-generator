@@ -4,13 +4,13 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const {Memes} = require('./models');
+const {Memes} = require('../models');
 
 router.get('/memes', (req, res) => {
     Memes
       .find()
       .then(memes => {
-        res.json(memes.map(meme => meme.serialize()));
+        res.json(memes.map(meme => meme));
       })
       .catch(err => {
         console.error(err);
@@ -21,7 +21,7 @@ router.get('/memes', (req, res) => {
   router.get('/memes/:id', (req, res) => {
     Memes
       .findById(req.params.id)
-      .then(post => res.json(post.serialize()))
+      .then(meme => res.json(meme))
       .catch(err => {
         console.error(err);
         res.status(500).json({ error: 'something went horribly awry' });
@@ -29,7 +29,7 @@ router.get('/memes', (req, res) => {
   });
   
   router.post('/memes', (req, res) => {
-    const requiredFields = ['photo-url', 'text'];
+    const requiredFields = ['photoURL', 'text'];
     for (let i = 0; i < requiredFields.length; i++) {
       const field = requiredFields[i];
       if (!(field in req.body)) {
@@ -41,10 +41,10 @@ router.get('/memes', (req, res) => {
   
     Memes
       .create({
-        "photo-url" : req.body.photo-url,
+        "photoURL" : req.body.photoURL,
         text: req.body.text
       })
-      .then(memes => res.status(201).json(memes.serialize()))
+      .then(memes => res.status(201).json(memes))
       .catch(err => {
         console.error(err);
         res.status(500).json({ error: 'Something went wrong' });
@@ -92,7 +92,7 @@ router.get('/memes', (req, res) => {
     Memes
       .findByIdAndRemove(req.params.id)
       .then(() => {
-        console.log(`Deleted photo with id \`${req.params.id}\``);
+        console.log(`Deleted meme with id \`${req.params.id}\``);
         res.status(204).end();
       });
   });

@@ -7,7 +7,14 @@
 </head>
 
 <body>
-    <p>hello world</p>
+    <h1>Choose from this feed of photos</h1>
+    <div></div>
+    
+    <form action="/photos" id="photoUpload">
+        <label for="pic">Upload your own photo to create your meme</label><br>
+        <input type="file" name="pic" accept="image/*" id="newPhoto">
+        <input type="submit">
+    </form>
     
     <script src="//code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
