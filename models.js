@@ -3,20 +3,43 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const photoSchema = mongoose.Schema({
+const PhotoSchema = mongoose.Schema({
   photoURL: {type: String, required: true},
-  date: {type: Date, default: Date.now}
-});
-
-const Photos = mongoose.model('Photos', photoSchema);
-
-const memeSchema = mongoose.Schema({
-  photoURL: {type: String, required: true},
-  text: {type: String, required: true},
+  liked: {type: Number},
   date: {type: Date, default: Date.now}
 });
 
 
-const Memes = mongoose.model('Memes', memeSchema);
+PhotoSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    photoURL: this.photoURL,
+    liked: this.liked,
+    date: this.date,
+  };
+};
 
-module.exports = {Photos, Memes};
+const Photo = mongoose.model('Photo', PhotoSchema);
+
+const MemeSchema = mongoose.Schema({
+    photoURL: {type: String, required: true},
+    text: {type: String},
+    liked: {type: Number},
+    date: {type: Date, default: Date.now}
+  });
+  
+  
+  MemeSchema.methods.serialize = function() {
+    return {
+      id: this._id,
+      photoURL: this.photoURL,
+      text: this.text,
+      liked: this.liked,
+      date: this.date,
+    };
+  };
+  
+  const Meme = mongoose.model('Meme', MemeSchema);
+  
+
+module.exports = {Photo, Meme};

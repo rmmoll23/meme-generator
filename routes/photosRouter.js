@@ -4,10 +4,10 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const {Photos} = require('../models');
+const {Photo} = require('../models');
 
-router.get('/photos', (req, res) => {
-    Photos
+router.get('/', (req, res) => {
+    Photo
       .find()
       .then(photos => {
         res.json(photos.map(photo => photo));
@@ -18,8 +18,8 @@ router.get('/photos', (req, res) => {
       });
   });
   
-  router.get('/photos/:id', (req, res) => {
-    Photos
+  router.get('/:id', (req, res) => {
+    Photo
       .findById(req.params.id)
       .then(photo => res.json(photo))
       .catch(err => {
@@ -28,7 +28,7 @@ router.get('/photos', (req, res) => {
       });
   });
   
-  router.post('/photos', (req, res) => {
+  router.post('/', (req, res) => {
     const requiredFields = ['photoURL'];
     for (let i = 0; i < requiredFields.length; i++) {
       const field = requiredFields[i];
@@ -39,7 +39,7 @@ router.get('/photos', (req, res) => {
       }
     }
   
-    Photos
+    Photo
       .create({
         photoURL : req.body.photoURL
       })
@@ -52,8 +52,8 @@ router.get('/photos', (req, res) => {
   });
   
   
-  router.delete('/photos/:id', (req, res) => {
-    Photos
+  router.delete('/:id', (req, res) => {
+    Photo
       .findByIdAndRemove(req.params.id)
       .then(() => {
         res.status(204).json({ message: 'success' });
@@ -65,7 +65,7 @@ router.get('/photos', (req, res) => {
   });
   
   
-  router.put('/photos/:id', (req, res) => {
+  router.put('/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
       res.status(400).json({
         error: 'Request path id and request body id values must match'
@@ -80,7 +80,7 @@ router.get('/photos', (req, res) => {
       }
     });
   
-    Photos
+    Photo
       .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
       .then(updatedPhoto => res.status(204).end())
       .catch(err => res.status(500).json({ message: 'Something went wrong' }));
@@ -88,7 +88,7 @@ router.get('/photos', (req, res) => {
   
   
   router.delete('/:id', (req, res) => {
-    Photos
+    Photo
       .findByIdAndRemove(req.params.id)
       .then(() => {
         console.log(`Deleted photo with id \`${req.params.id}\``);

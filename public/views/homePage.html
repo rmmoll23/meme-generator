@@ -7,12 +7,48 @@
 </head>
 
 <body>
-    <h1>Check out all of the top and most recent memes created</h1>
+ <main role="main" class="home">
+   
+    <div id="view1">
+        <h1>Check out all of the top and most recent memes created</h1>
+        <div class="memeBanner">
+            
+            
+            <!-- <button class="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="displayRight" onclick="plusDivs(1)">&#10095;</button> -->
+        
+        </div>
+        <button id="create">Create your own meme</button>
+    </div>
+
+    <div id="view2" class="hidden">
+        <h1>Choose from this feed of photos</h1>
+        <div class="photoBanner">
+        
+            
+        <!-- <button class="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+        <button class="displayRight" onclick="plusDivs(1)">&#10095;</button> -->
+        </div>
     
-    <script src="//code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
+        <form id="photoUpload">
+        <label for="pic">Upload your own photo to create your meme</label><br>
+        <input type="text" name="pic" id="newPhoto">
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="view3" class="hidden">
+        <h1>Create your Meme</h1>
+    </div>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
     <script src="../javascripts/main.js"></script>
+ </main>
 </body>
 
 </html>

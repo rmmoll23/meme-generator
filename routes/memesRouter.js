@@ -4,10 +4,10 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const {Memes} = require('../models');
+const {Meme} = require('../models');
 
-router.get('/memes', (req, res) => {
-    Memes
+router.get('/', (req, res) => {
+    Meme
       .find()
       .then(memes => {
         res.json(memes.map(meme => meme));
@@ -18,8 +18,8 @@ router.get('/memes', (req, res) => {
       });
   });
   
-  router.get('/memes/:id', (req, res) => {
-    Memes
+  router.get('/:id', (req, res) => {
+    Meme
       .findById(req.params.id)
       .then(meme => res.json(meme))
       .catch(err => {
@@ -28,7 +28,7 @@ router.get('/memes', (req, res) => {
       });
   });
   
-  router.post('/memes', (req, res) => {
+  router.post('/', (req, res) => {
     const requiredFields = ['photoURL', 'text'];
     for (let i = 0; i < requiredFields.length; i++) {
       const field = requiredFields[i];
@@ -39,7 +39,7 @@ router.get('/memes', (req, res) => {
       }
     }
   
-    Memes
+    Meme
       .create({
         "photoURL" : req.body.photoURL,
         text: req.body.text
@@ -53,8 +53,8 @@ router.get('/memes', (req, res) => {
   });
   
   
-  router.delete('/memes/:id', (req, res) => {
-    Memes
+  router.delete('/:id', (req, res) => {
+    Meme
       .findByIdAndRemove(req.params.id)
       .then(() => {
         res.status(204).json({ message: 'success' });
@@ -66,7 +66,7 @@ router.get('/memes', (req, res) => {
   });
   
   
-  router.put('/memes/:id', (req, res) => {
+  router.put('/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
       res.status(400).json({
         error: 'Request path id and request body id values must match'
@@ -81,7 +81,7 @@ router.get('/memes', (req, res) => {
       }
     });
   
-    Memes
+    Meme
       .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
       .then(updatedMeme => res.status(204).end())
       .catch(err => res.status(500).json({ message: 'Something went wrong' }));
@@ -89,7 +89,7 @@ router.get('/memes', (req, res) => {
   
   
   router.delete('/:id', (req, res) => {
-    Memes
+    Meme
       .findByIdAndRemove(req.params.id)
       .then(() => {
         console.log(`Deleted meme with id \`${req.params.id}\``);

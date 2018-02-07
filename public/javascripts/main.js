@@ -3,7 +3,7 @@ const homePageTemplate = (
   );
   
   const photoSelectionTemplate = (
-    '<div></div>'
+    '<img class="mySlides" src="${photoURL}">'
   );
 
   const memeCreationTemplate = (
@@ -58,6 +58,7 @@ const homePageTemplate = (
       success: function(data) {
         getAndDisplayPhotoFeed_recent();
       },
+      data: JSON.stringify(photo),
       dataType: 'json',
       contentType: 'application/json'
     });
@@ -87,19 +88,25 @@ const homePageTemplate = (
   }
   
   function handleEventListeners() {
+
+    $('.home').on('click', '#create', function(event) {
+      $('#view1').addClass('hidden');
+      $('#view2').removeClass('hidden');
+    });
   
     $('#photoUpload').submit(function(event) {
       event.preventDefault();
-      addPhoto({
-        photoURL: $(event.currentTarget).find('#newPhoto').val(),
-      });
+      const photoURL = $(event.currentTarget).find('#newPhoto').val();
+      addPhoto();
+      $('#view2').addClass('hidden');
+      $('#view3').removeClass('hidden');
     });
   
   }
   
   
   $(function() {
-    getAndDisplayMemeFeed_top();
-    getAndDisplayMemeFeed_recent();
+    // getAndDisplayMemeFeed_top();
+    // getAndDisplayMemeFeed_recent();
     handleEventListeners();
   });
