@@ -51,7 +51,7 @@ const homePageTemplate = (
   
   
   function addPhoto(photo) {
-    console.log('Adding photo');
+    console.log(photo);
     $.ajax({
       method: 'POST',
       url: photoSelection_URL,
@@ -96,8 +96,9 @@ const homePageTemplate = (
   
     $('#photoUpload').submit(function(event) {
       event.preventDefault();
-      const photoURL = $(event.currentTarget).find('#newPhoto').val();
-      addPhoto();
+      const photo = $(event.currentTarget).find('#newPhoto').val();
+      addPhoto({photoURL: photo,
+      liked: 0});
       $('#view2').addClass('hidden');
       $('#view3').removeClass('hidden');
     });
