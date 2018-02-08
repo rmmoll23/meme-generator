@@ -3,14 +3,18 @@ const router = express.Router();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const uuid = require('uuid/v1');
 
-const {Photo} = require('../models');
+// const {Photo} = require('../models');
+const connect = require('../connect');
 
 router.get('/', (req, res) => {
-    Photo
-      .find()
+      connect()
+      .then(db => {
+        return db.collection('photos').find({}).toArray()
+      })
       .then(photos => {
-        res.json(photos.map(photo => photo));
+        res.json(photos);
       })
       .catch(err => {
         console.error(err);
@@ -39,9 +43,14 @@ router.get('/', (req, res) => {
       }
     }
   
-    Photo
-      .create({
-        photoURL : req.body.photoURL
+      connect()
+      .then(db => {
+        db.collection('photos').insert({
+          photoURL: req.body.photoURL, 
+          date: new Date().toString(),
+          liked: 0,
+          id: uuid()
+        })
       })
       .then(photos => res.status(201).json(photos))
       .catch(err => {

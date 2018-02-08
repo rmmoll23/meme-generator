@@ -2,9 +2,7 @@ const homePageTemplate = (
     '<div></div>'
   );
   
-  const photoSelectionTemplate = (
-    '<img class="mySlides" src="${photoURL}">'
-  );
+  
 
   const memeCreationTemplate = (
     '<div></div>'
@@ -35,9 +33,16 @@ const homePageTemplate = (
 
   function getAndDisplayPhotoFeed_top() {
     console.log('Retrieving top photos')
-    const photoTop_URL = photoSelection_URL + '/top';
+    const photoTop_URL = photoSelection_URL;
     $.getJSON(photoTop_URL, function(photos) {
       console.log('Rendering top photos');
+      console.log(photos);
+      const photoFeedTop = photos.map(function(photo) {
+        const photoSelectionTemplate = 
+          `<img class="mySlides" id='${photo.id}' src='${photo.photoURL}'>`;
+        return photoSelectionTemplate;
+      })
+      $('.photoBanner').prepend(photoFeedTop);
     });
   }
 
@@ -55,9 +60,9 @@ const homePageTemplate = (
     $.ajax({
       method: 'POST',
       url: photoSelection_URL,
-      success: function(data) {
-        getAndDisplayPhotoFeed_recent();
-      },
+      // success: function(data) {
+      //   getAndDisplayPhotoFeed_top();
+      // },
       data: JSON.stringify(photo),
       dataType: 'json',
       contentType: 'application/json'
@@ -69,7 +74,7 @@ const homePageTemplate = (
     $.ajax({
       method: 'POST',
       url: memeCreation_URL,
-      data: JSON.stringify(item),
+      data: JSON.stringify(meme),
       success: function(data) {
         getAndDisplayShoppingList();
       },
@@ -92,6 +97,7 @@ const homePageTemplate = (
     $('.home').on('click', '#create', function(event) {
       $('#view1').addClass('hidden');
       $('#view2').removeClass('hidden');
+      getAndDisplayPhotoFeed_top();
     });
   
     $('#photoUpload').submit(function(event) {
@@ -107,7 +113,5 @@ const homePageTemplate = (
   
   
   $(function() {
-    // getAndDisplayMemeFeed_top();
-    // getAndDisplayMemeFeed_recent();
     handleEventListeners();
   });

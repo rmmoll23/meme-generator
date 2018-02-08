@@ -6,3 +6,37 @@ body {
 .hidden {
   display: none;
 }
+
+h1 {
+  text-align: center;
+}
+
+.mySlides {
+  width: 100%;
+  height: 400px;
+}
+
+.photoBanner {
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.navButtons {
+  top: 50%;
+  cursor: pointer;
+  position: absolute;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  transform: translate(0%, -50%);
+}
+
+#displayLeft {
+  left: 27.5%;
+}
+
+#displayRight {
+  right: 27.5%;
+}
