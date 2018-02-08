@@ -40,3 +40,13 @@ h1 {
 #displayRight {
   right: 27.5%;
 }
+
+.fa-star {
+ position: absolute;
+ top: 20%;
+ right: 28%;
+}
+
+#clickableIcon {
+  cursor: pointer;
+}

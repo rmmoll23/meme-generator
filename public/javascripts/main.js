@@ -33,13 +33,14 @@ const homePageTemplate = (
 
   function getAndDisplayPhotoFeed_top() {
     console.log('Retrieving top photos')
-    const photoTop_URL = photoSelection_URL;
+    const photoTop_URL = photoSelection_URL + '/top';
     $.getJSON(photoTop_URL, function(photos) {
       console.log('Rendering top photos');
       console.log(photos);
       const photoFeedTop = photos.map(function(photo) {
         const photoSelectionTemplate = 
-          `<img class="mySlides" id='${photo.id}' src='${photo.photoURL}'>`;
+          `<img class='mySlides' id='${photo.id}' src='${photo.photoURL}'><br>
+           <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>`;
         return photoSelectionTemplate;
       })
       $('.photoBanner').prepend(photoFeedTop);
@@ -51,6 +52,13 @@ const homePageTemplate = (
     const photoRecent_URL = photoSelection_URL + '/recent';
     $.getJSON(photoRecent_URL, function(photos) {
       console.log('Rendering recent photos');
+      const photoFeedRecent = photos.map(function(photo) {
+        const photoSelectionTemplate = 
+          `<img class='mySlides' id='${photo.id}' src='${photo.photoURL}'><br>
+          <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>`;
+        return photoSelectionTemplate;
+      })
+      $('.photoBanner').prepend(photoFeedRecent);
     });
   }
   
@@ -66,6 +74,18 @@ const homePageTemplate = (
       data: JSON.stringify(photo),
       dataType: 'json',
       contentType: 'application/json'
+    });
+  }
+
+  function updatePhoto(id) {
+    console.log('Updating photo `' + id + '`');
+    $.ajax({
+      url: serverBase + '/' + id,
+      method: 'PUT',
+      data: recipe,
+      success: function(data) {
+        getAndDisplayRecipes();
+      }
     });
   }
   
@@ -107,6 +127,14 @@ const homePageTemplate = (
       liked: 0});
       $('#view2').addClass('hidden');
       $('#view3').removeClass('hidden');
+    });
+
+    $('.photoBanner').on('click', '.clickableIcon', function(){
+      console.log('liked');
+      const star = $(event.currentTarget).find('span').attr('id');
+      console.log(star);
+      updatePhoto(star);
+
     });
   
   }

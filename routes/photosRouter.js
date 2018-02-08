@@ -11,7 +11,7 @@ const connect = require('../connect');
 router.get('/', (req, res) => {
       connect()
       .then(db => {
-        return db.collection('photos').find({}).toArray()
+        return db.collection('photos').find().toArray()
       })
       .then(photos => {
         res.json(photos);
@@ -21,6 +21,34 @@ router.get('/', (req, res) => {
         res.status(500).json({ error: 'something went terribly wrong' });
       });
   });
+
+router.get('/top', (req, res) => {
+      connect()
+      .then(db => {
+        return db.collection('photos').find().sort({liked: 1}).toArray()
+      })
+      .then(photos => {
+        res.json(photos);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: 'something went terribly wrong' });
+      });
+  });
+
+router.get('/recent', (req, res) => {
+      connect()
+      .then(db => {
+        return db.collection('photos').find().sort({date: -1}).toArray()
+      })
+      .then(photos => {
+        res.json(photos);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: 'something went terribly wrong' });
+      });
+    });
   
   router.get('/:id', (req, res) => {
     Photo

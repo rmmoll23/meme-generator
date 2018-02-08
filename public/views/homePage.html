@@ -4,6 +4,7 @@
 <head>
     <title>Meme-Generator</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
 
 <body>
@@ -13,10 +14,30 @@
         <h1>Check out all of the top and most recent memes created</h1>
         <div class="memeBanner">
             
+         
             
-            <!-- <button class="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="displayRight" onclick="plusDivs(1)">&#10095;</button> -->
-        
+            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+
+            <script>
+                    let slideIndex = 1;
+                    showDivs(slideIndex);
+                    
+                    function plusDivs(n) {
+                    showDivs(slideIndex += n);
+                    }
+                    
+                    function showDivs(n) {
+                        console.log(n);
+                    let x = document.getElementsByClassName("mySlides");
+                    if (n > x.length) {slideIndex = 1} 
+                    if (n < 1) {slideIndex = x.length}
+                    for (let i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";  
+                    }
+                    x[slideIndex-1].style.display = "block";  
+                    }
+            </script>
         </div>
         <button id="create">Create your own meme</button>
     </div>
@@ -26,28 +47,28 @@
         <div class="photoBanner">
         
             
-        <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-        <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
 
-        <script>
-                let slideIndex = 1;
-                showDivs(slideIndex);
-                
-                function plusDivs(n) {
-                  showDivs(slideIndex += n);
-                }
-                
-                function showDivs(n) {
-                    console.log(n);
-                  let x = document.getElementsByClassName("mySlides");
-                  if (n > x.length) {slideIndex = 1} 
-                  if (n < 1) {slideIndex = x.length}
-                  for (let i = 0; i < x.length; i++) {
-                     x[i].style.display = "none";  
-                  }
-                  x[slideIndex-1].style.display = "block";  
-                }
-        </script>
+            <script>
+                    let slideIndex = 1;
+                    showDivs(slideIndex);
+                    
+                    function plusDivs(n) {
+                    showDivs(slideIndex += n);
+                    }
+                    
+                    function showDivs(n) {
+                        console.log(n);
+                    let x = document.getElementsByClassName("mySlides");
+                    if (n > x.length) {slideIndex = 1} 
+                    if (n < 1) {slideIndex = x.length}
+                    for (let i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";  
+                    }
+                    x[slideIndex-1].style.display = "block";  
+                    }
+            </script>
         </div>
     
         <form id="photoUpload">
