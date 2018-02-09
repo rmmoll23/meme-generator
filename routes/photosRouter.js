@@ -51,8 +51,11 @@ router.get('/recent', (req, res) => {
     });
   
   router.get('/:id', (req, res) => {
-    Photo
-      .findById(req.params.id)
+      connect()
+      .then(db => {
+        console.log(req.params.id);
+        return db.collection('photos').findOne({id: req.params.id})
+      })
       .then(photo => res.json(photo))
       .catch(err => {
         console.error(err);
@@ -90,8 +93,10 @@ router.get('/recent', (req, res) => {
   
   
   router.delete('/:id', (req, res) => {
-    Photo
-      .findByIdAndRemove(req.params.id)
+    connect()
+      .then(db => {
+        db.collection('photos').findByIdAndRemove(req.params.id)
+      })
       .then(() => {
         res.status(204).json({ message: 'success' });
       })
@@ -103,34 +108,29 @@ router.get('/recent', (req, res) => {
   
   
   router.put('/:id', (req, res) => {
-    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-      res.status(400).json({
-        error: 'Request path id and request body id values must match'
-      });
+    const requiredFields = ['liked', 'id'];
+    for (let i=0; i<requiredFields.length; i++) {
+      const field = requiredFields[i];
+      if (!(field in req.body)) {
+        const message = `Missing \`${field}\` in request body`
+        console.error(message);
+        return res.status(400).send(message);
+      }
+    }
+    if (req.params.id !== req.body.id) {
+      const message = (
+        `Request path id (${req.params.id}) and request body id `
+        `(${req.body.id}) must match`);
+      console.error(message);
+      return res.status(400).send(message);
     }
   
-    const updated = {};
-    const updateableFields = ['likes'];
-    updateableFields.forEach(field => {
-      if (field in req.body) {
-        updated[field] = req.body[field];
-      }
-    });
-  
-    Photo
-      .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+    connect()
+      .then(db => {
+        db.collection('photos').findOneAndUpdate({'id': req.params.id}, { $set: {'liked': req.body.liked} }, { returnNewDocument: true })
+      })
       .then(updatedPhoto => res.status(204).end())
       .catch(err => res.status(500).json({ message: 'Something went wrong' }));
-  });
-  
-  
-  router.delete('/:id', (req, res) => {
-    Photo
-      .findByIdAndRemove(req.params.id)
-      .then(() => {
-        console.log(`Deleted photo with id \`${req.params.id}\``);
-        res.status(204).end();
-      });
   });
 
 module.exports = router;

@@ -47,6 +47,19 @@ const homePageTemplate = (
     });
   }
 
+  function getPhotoById(id) {
+    const photoById_URL = photoSelection_URL + '/' + id;
+    $.getJSON(photoById_URL, function(photo) {
+      const likedCount = photo.liked += 1;
+      console.log(likedCount);
+      const updatedPhoto = {
+        id: id, 
+        liked: likedCount
+      }
+      updatePhoto(updatedPhoto);
+    })
+  }
+
   function getAndDisplayPhotoFeed_recent() {
     console.log('Retrieving recent photos')
     const photoRecent_URL = photoSelection_URL + '/recent';
@@ -68,23 +81,20 @@ const homePageTemplate = (
     $.ajax({
       method: 'POST',
       url: photoSelection_URL,
-      // success: function(data) {
-      //   getAndDisplayPhotoFeed_top();
-      // },
       data: JSON.stringify(photo),
       dataType: 'json',
       contentType: 'application/json'
     });
   }
 
-  function updatePhoto(id) {
-    console.log('Updating photo `' + id + '`');
+  function updatePhoto(updatedItem) {
+    console.log('Updating photo `' + updatedItem.id + '`');
     $.ajax({
-      url: serverBase + '/' + id,
+      url: photoSelection_URL + '/' + updatedItem.id,
       method: 'PUT',
-      data: recipe,
+      data: updatedItem,
       success: function(data) {
-        getAndDisplayRecipes();
+        getAndDisplayPhotoFeed_top();
       }
     });
   }
@@ -133,7 +143,7 @@ const homePageTemplate = (
       console.log('liked');
       const star = $(event.currentTarget).find('span').attr('id');
       console.log(star);
-      updatePhoto(star);
+      getPhotoById(star);
 
     });
   

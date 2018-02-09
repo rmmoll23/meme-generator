@@ -27,7 +27,9 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 
 app.use('/photos', photosRouter);
+app.use('/photos/:id', photosRouter);
 app.use('/memes', memesRouter);
+app.use('/memes/:id', memesRouter);
 app.use('/users', users);
 
 app.get('/', (req, res) => {
