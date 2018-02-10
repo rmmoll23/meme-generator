@@ -3,6 +3,18 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+#view1 {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#view2 {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .hidden {
   display: none;
 }
@@ -74,9 +86,18 @@ h1 {
 
 .memeContainer {
   background-size: cover;
+  background-repeat: no-repeat;
   margin-left: auto;
   margin-right: auto;
+  width: 80%;
+  height: 600px;
   }
+
+#view3 {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 
 .memeImage {
   width: 100%;
