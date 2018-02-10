@@ -22,31 +22,58 @@ h1 {
   margin-left: auto;
 }
 
+.parent {
+  position: relative;
+  width: 100%;
+}
+
 .navButtons {
   top: 50%;
   cursor: pointer;
   position: absolute;
   background-color: black;
   color: white;
-  border: none;
+  border-color: black;
   padding: 8px 16px;
   transform: translate(0%, -50%);
+  border-radius: 5px;
 }
 
 #displayLeft {
-  left: 27.5%;
+  left: 0px;
 }
 
 #displayRight {
-  right: 27.5%;
+  right: 0px;
 }
 
 .fa-star {
  position: absolute;
- top: 20%;
- right: 28%;
+ top: 15px;
+ right: 15px;
+ cursor: pointer;
 }
 
-#clickableIcon {
+.selectPhotoButton {
   cursor: pointer;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: black;
+  color: white;
+  border-color: black;
+  border-radius: 5px;
+}
+
+/* view3 */
+
+.memeContainer {
+height: 50%;
+width: 50%;
+margin-left: auto;
+margin-right: auto;
+}
+
+.memeImage {
+  width: 100%;
 }

@@ -14,31 +14,8 @@
         <h1>Check out all of the top and most recent memes created</h1>
         <div class="memeBanner">
             
-         
-            
-            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
-
-            <script>
-                    let slideIndex = 1;
-                    showDivs(slideIndex);
-                    
-                    function plusDivs(n) {
-                    showDivs(slideIndex += n);
-                    }
-                    
-                    function showDivs(n) {
-                        console.log(n);
-                    let x = document.getElementsByClassName("mySlides");
-                    if (n > x.length) {slideIndex = 1} 
-                    if (n < 1) {slideIndex = x.length}
-                    for (let i = 0; i < x.length; i++) {
-                        x[i].style.display = "none";  
-                    }
-                    x[slideIndex-1].style.display = "block";  
-                    }
-            </script>
         </div>
+          
         <button id="create">Create your own meme</button>
     </div>
 
@@ -46,30 +23,26 @@
         <h1>Choose from this feed of photos</h1>
         <div class="photoBanner">
         
-            
-            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
-
+        </div>
             <script>
                     let slideIndex = 1;
                     showDivs(slideIndex);
                     
                     function plusDivs(n) {
-                    showDivs(slideIndex += n);
+                        showDivs(slideIndex += n);
                     }
                     
                     function showDivs(n) {
-                        console.log(n);
-                    let x = document.getElementsByClassName("mySlides");
-                    if (n > x.length) {slideIndex = 1} 
-                    if (n < 1) {slideIndex = x.length}
-                    for (let i = 0; i < x.length; i++) {
-                        x[i].style.display = "none";  
-                    }
-                    x[slideIndex-1].style.display = "block";  
+                            console.log(n);
+                        let x = document.getElementsByClassName("parent");
+                        if (n > x.length) {slideIndex = 1} 
+                        if (n < 1) {slideIndex = x.length}
+                        for (let i = 0; i < x.length; i++) {
+                            x[i].style.display = "none";  
+                        }
+                        x[slideIndex-1].style.display = "block";  
                     }
             </script>
-        </div>
     
         <form id="photoUpload">
         <label for="pic">Upload your own photo to create your meme</label><br>
@@ -80,6 +53,10 @@
 
     <div id="view3" class="hidden">
         <h1>Create your Meme</h1>
+        <div class='memeContainer'>
+
+            <button class='submitMemeButton' type='submit'>Submit Meme</button>
+        </div>
     </div>
 
 

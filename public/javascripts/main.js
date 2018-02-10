@@ -39,15 +39,40 @@ const homePageTemplate = (
       console.log(photos);
       const photoFeedTop = photos.map(function(photo) {
         const photoSelectionTemplate = 
-          `<img class='mySlides' id='${photo.id}' src='${photo.photoURL}'><br>
-           <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>`;
+          `<div class='parent'>
+            <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
+            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>
+            <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
+            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+           </div>`;
         return photoSelectionTemplate;
       })
       $('.photoBanner').prepend(photoFeedTop);
     });
   }
 
-  function getPhotoById(id) {
+  function getAndDisplayPhotoFeed_recent() {
+    console.log('Retrieving recent photos')
+    const photoRecent_URL = photoSelection_URL + '/recent';
+    $.getJSON(photoRecent_URL, function(photos) {
+      console.log('Rendering recent photos');
+      const photoFeedRecent = photos.map(function(photo) {
+        const photoSelectionTemplate = 
+          `<div class='parent'>
+            <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
+            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>
+            <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
+            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+          </div>`;
+        return photoSelectionTemplate;
+      })
+      $('.photoBanner').prepend(photoFeedRecent);
+    });
+  }
+
+  function getPhotoAndUpdateById(id) {
     const photoById_URL = photoSelection_URL + '/' + id;
     $.getJSON(photoById_URL, function(photo) {
       const likedCount = photo.liked += 1;
@@ -60,20 +85,20 @@ const homePageTemplate = (
     })
   }
 
-  function getAndDisplayPhotoFeed_recent() {
-    console.log('Retrieving recent photos')
-    const photoRecent_URL = photoSelection_URL + '/recent';
-    $.getJSON(photoRecent_URL, function(photos) {
-      console.log('Rendering recent photos');
-      const photoFeedRecent = photos.map(function(photo) {
-        const photoSelectionTemplate = 
-          `<img class='mySlides' id='${photo.id}' src='${photo.photoURL}'><br>
-          <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>`;
-        return photoSelectionTemplate;
-      })
-      $('.photoBanner').prepend(photoFeedRecent);
+  function getAndDisplayPhotoById(id) {
+    console.log('Retrieving photo to display')
+    const photoChoice_URL = photoSelection_URL + '/' + id;
+    $.getJSON(photoChoice_URL, function(photo) {
+      console.log(photo);
+        const photoChoiceTemplate = 
+          `<img class='memeImage' id='${photo.id}' src='${photo.photoURL}'>`;
+      $('.memeContainer').prepend(photoChoiceTemplate);
+      $('#view2').addClass('hidden');
+      $('#view3').removeClass('hidden');
     });
   }
+
+
   
   
   function addPhoto(photo) {
@@ -141,9 +166,15 @@ const homePageTemplate = (
 
     $('.photoBanner').on('click', '.clickableIcon', function(){
       console.log('liked');
-      const star = $(event.currentTarget).find('span').attr('id');
-      console.log(star);
-      getPhotoById(star);
+      const starId = $(event.currentTarget).find('span').attr('id');
+      getPhotoAndUpdateById(starId);
+    });
+
+    $('.photoBanner').on('click', '.selectPhotoButton', function(){
+      console.log('selected photo');
+      const buttonId = $(event.currentTarget).find('button').attr('id');
+      console.log(buttonId);
+      getAndDisplayPhotoById(buttonId);
 
     });
   
