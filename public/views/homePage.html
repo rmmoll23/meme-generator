@@ -5,6 +5,25 @@
     <title>Meme-Generator</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script>
+        let slideIndex = 1;
+        
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+        
+        function showDivs(n) {
+                console.log(n);
+            let x = document.getElementsByClassName("parent");
+            if (n > x.length) {slideIndex = 1} 
+            if (n < 1) {slideIndex = x.length}
+            for (let i = 0; i < x.length; i++) {
+                x[i].style.display = "none";  
+            }
+            console.log(slideIndex, x);
+            x[slideIndex-1].style.display = "block";  
+        }
+</script>
 </head>
 
 <body>
@@ -24,27 +43,6 @@
         <div class="photoBanner">
         
         </div>
-            <script>
-                    let slideIndex = 1;
-                    // showDivs(slideIndex);
-                    
-                    function plusDivs(n) {
-                        showDivs(slideIndex += n);
-                    }
-                    
-                    function showDivs(n) {
-                            console.log(n);
-                        let x = document.getElementsByClassName("parent");
-                        if (n > x.length) {slideIndex = 1} 
-                        if (n < 1) {slideIndex = x.length}
-                        for (let i = 0; i < x.length; i++) {
-                            x[i].style.display = "none";  
-                        }
-                        console.log(slideIndex, x);
-                        x[slideIndex-1].style.display = "block";  
-                    }
-            </script>
-    
         <form id="photoUpload">
         <label for="pic">Upload your own photo to create your meme</label><br>
         <input type="text" name="pic" id="newPhoto">

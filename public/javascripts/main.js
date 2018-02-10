@@ -82,9 +82,9 @@ const homePageTemplate = (
       console.log(photo);
       const memeTemplate = `<h1>Create your Meme</h1>
       <div class='memeContainer' style='background-image: url(${photo.photoURL})'>
-      <div class='textBox'></div></div>
+      <div id='textBox'>hello</div></div>
       <label for='phrase'>Input text for meme</label>
-      <input type='text' id='phrase'/><br>
+      <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
       $('#view3').append(memeTemplate);
       $('#view2').addClass('hidden');
@@ -136,6 +136,15 @@ const homePageTemplate = (
       success: getAndDisplayRecipes
     });
   }
+
+  function memeText() {
+    let input = $('#phrase').val();
+    let div = $('#textBox').html();
+    if (input !== div) {
+        $('#textBox').empty();
+        $('#textBox').append(input);
+    }
+  }
   
   function handleEventListeners() {
 
@@ -152,9 +161,9 @@ const homePageTemplate = (
       liked: 0});
       const createMemeTemplate = `<h1>Create your Meme</h1>
       <div class='memeContainer' style='background-image: url(${photo})'>
-      <div class='textBox'></div></div>
+      <div id='textBox'></div></div>
       <label for='phrase'>Input text for meme</label>
-      <input type='text' id='phrase'/><br>
+      <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
       $('#view3').append(createMemeTemplate);
       $('#view2').addClass('hidden');

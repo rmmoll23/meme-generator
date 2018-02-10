@@ -99,6 +99,9 @@ h1 {
   text-align: center;
 }
 
-.memeImage {
-  width: 100%;
+#textBox {
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  padding-top: 20px;
 }
