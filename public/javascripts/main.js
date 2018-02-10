@@ -36,19 +36,19 @@ const homePageTemplate = (
     const photoTop_URL = photoSelection_URL + '/top';
     $.getJSON(photoTop_URL, function(photos) {
       console.log('Rendering top photos');
-      console.log(photos);
       const photoFeedTop = photos.map(function(photo) {
         const photoSelectionTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>
+            <span class='clickableIcon' onClick='${updatePhoto(photo.id)}' id='${photo.id}'><i class='far fa-star'></i></span>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
         return photoSelectionTemplate;
       })
-      $('.photoBanner').prepend(photoFeedTop);
+      $('.photoBanner').append(photoFeedTop);
+      showDivs(1);
     });
   }
 
@@ -61,28 +61,15 @@ const homePageTemplate = (
         const photoSelectionTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>
+            <span class='clickableIcon' onClick='${updatePhoto(photo.id)}' id='${photo.id}'><i class='far fa-star'></i></span>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
           </div>`;
         return photoSelectionTemplate;
       })
-      $('.photoBanner').prepend(photoFeedRecent);
+      $('.photoBanner').append(photoFeedRecent);
     });
-  }
-
-  function getPhotoAndUpdateById(id) {
-    const photoById_URL = photoSelection_URL + '/' + id;
-    $.getJSON(photoById_URL, function(photo) {
-      const likedCount = photo.liked += 1;
-      console.log(likedCount);
-      const updatedPhoto = {
-        id: id, 
-        liked: likedCount
-      }
-      updatePhoto(updatedPhoto);
-    })
   }
 
   function getAndDisplayPhotoById(id) {
@@ -90,9 +77,11 @@ const homePageTemplate = (
     const photoChoice_URL = photoSelection_URL + '/' + id;
     $.getJSON(photoChoice_URL, function(photo) {
       console.log(photo);
-        const photoChoiceTemplate = 
-          `<img class='memeImage' id='${photo.id}' src='${photo.photoURL}'>`;
-      $('.memeContainer').prepend(photoChoiceTemplate);
+      const memeTemplate = `<h1>Create your Meme</h1>
+      <div class='memeContainer style='background: url(${photo.photoUrl})'>
+      <div class='textBox'></div></div>
+      <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
+      $('#view3').append(memeTemplate);
       $('#view2').addClass('hidden');
       $('#view3').removeClass('hidden');
     });
@@ -112,14 +101,14 @@ const homePageTemplate = (
     });
   }
 
-  function updatePhoto(updatedItem) {
-    console.log('Updating photo `' + updatedItem.id + '`');
+  function updatePhoto(id) {
+    console.log('Updating photo `' + id + '`');
     $.ajax({
-      url: photoSelection_URL + '/' + updatedItem.id,
+      url: photoSelection_URL + '/' + id,
       method: 'PUT',
-      data: updatedItem,
       success: function(data) {
         getAndDisplayPhotoFeed_top();
+      
       }
     });
   }
@@ -160,18 +149,19 @@ const homePageTemplate = (
       const photo = $(event.currentTarget).find('#newPhoto').val();
       addPhoto({photoURL: photo,
       liked: 0});
+      $('.memeContainer').style.backgroundImage = url(photo);
       $('#view2').addClass('hidden');
       $('#view3').removeClass('hidden');
     });
 
-    $('.photoBanner').on('click', '.clickableIcon', function(){
-      console.log('liked');
-      const starId = $(event.currentTarget).find('span').attr('id');
-      getPhotoAndUpdateById(starId);
-    });
+    // $('.photoBanner').on('click', '.clickableIcon', function(){
+    //   console.log('liked');
+    //   const starId = $(event.currentTarget).find('span').attr('id');
+    //   updatePhoto(starId);
+    // });
 
     $('.photoBanner').on('click', '.selectPhotoButton', function(){
-      console.log('selected photo');
+      console.log(event.currentTarget);
       const buttonId = $(event.currentTarget).find('button').attr('id');
       console.log(buttonId);
       getAndDisplayPhotoById(buttonId);

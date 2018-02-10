@@ -26,7 +26,7 @@
         </div>
             <script>
                     let slideIndex = 1;
-                    showDivs(slideIndex);
+                    // showDivs(slideIndex);
                     
                     function plusDivs(n) {
                         showDivs(slideIndex += n);
@@ -40,6 +40,7 @@
                         for (let i = 0; i < x.length; i++) {
                             x[i].style.display = "none";  
                         }
+                        console.log(slideIndex, x);
                         x[slideIndex-1].style.display = "block";  
                     }
             </script>
@@ -52,11 +53,7 @@
     </div>
 
     <div id="view3" class="hidden">
-        <h1>Create your Meme</h1>
-        <div class='memeContainer'>
-
-            <button class='submitMemeButton' type='submit'>Submit Meme</button>
-        </div>
+       
     </div>
 
 

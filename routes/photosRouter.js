@@ -108,26 +108,19 @@ router.get('/recent', (req, res) => {
   
   
   router.put('/:id', (req, res) => {
-    const requiredFields = ['liked', 'id'];
+    const requiredFields = ['id'];
     for (let i=0; i<requiredFields.length; i++) {
       const field = requiredFields[i];
-      if (!(field in req.body)) {
+      if (!(field in req.params)) {
         const message = `Missing \`${field}\` in request body`
         console.error(message);
         return res.status(400).send(message);
       }
     }
-    if (req.params.id !== req.body.id) {
-      const message = (
-        `Request path id (${req.params.id}) and request body id `
-        `(${req.body.id}) must match`);
-      console.error(message);
-      return res.status(400).send(message);
-    }
   
     connect()
       .then(db => {
-        db.collection('photos').findOneAndUpdate({'id': req.params.id}, { $set: {'liked': req.body.liked} }, { returnNewDocument: true })
+        db.collection('photos').findOneAndUpdate({'id': req.params.id}, { $inc: {'liked': 1} }, { returnNewDocument: true })
       })
       .then(updatedPhoto => res.status(204).end())
       .catch(err => res.status(500).json({ message: 'Something went wrong' }));

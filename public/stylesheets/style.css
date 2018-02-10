@@ -11,6 +11,10 @@ h1 {
   text-align: center;
 }
 
+#create {
+  cursor: pointer;
+}
+
 .mySlides {
   width: 100%;
   height: 400px;
@@ -48,10 +52,11 @@ h1 {
 }
 
 .fa-star {
- position: absolute;
- top: 15px;
- right: 15px;
- cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  font-size:30px;
 }
 
 .selectPhotoButton {
@@ -68,11 +73,10 @@ h1 {
 /* view3 */
 
 .memeContainer {
-height: 50%;
-width: 50%;
-margin-left: auto;
-margin-right: auto;
-}
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  }
 
 .memeImage {
   width: 100%;
