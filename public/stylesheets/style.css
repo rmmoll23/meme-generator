@@ -43,6 +43,14 @@ h1 {
   width: 100%;
 }
 
+#memeFilter {
+  cursor: pointer;
+}
+
+#photoFilter {
+  cursor: pointer;
+}
+
 .navButtons {
   top: 50%;
   cursor: pointer;
@@ -53,6 +61,7 @@ h1 {
   padding: 8px 16px;
   transform: translate(0%, -50%);
   border-radius: 5px;
+  opacity: 0.3;
 }
 
 #displayLeft {
@@ -64,11 +73,18 @@ h1 {
 }
 
 .fa-star {
-  position: absolute;
   top: 15px;
   right: 15px;
   cursor: pointer;
   font-size:30px;
+}
+
+.clickableIcon {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-weight: bold;
+  font-size: 30px;
 }
 
 .selectPhotoButton {

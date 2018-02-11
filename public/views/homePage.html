@@ -20,7 +20,7 @@
             for (let i = 0; i < x.length; i++) {
                 x[i].style.display = "none";  
             }
-            console.log(slideIndex, x);
+            console.log(slideIndex, x.length);
             x[slideIndex-1].style.display = "block";  
         }
 </script>
@@ -30,7 +30,7 @@
  <main role="main" class="home">
    
     <div id="view1">
-        <h1>Check out all of the top and most recent memes created</h1>
+        <h1>Check out all of the top and most recent memes created</h1><button type='button' id='memeFilter'>Top/Recent</button>
         <div class="memeBanner">
             
         </div>
@@ -39,12 +39,12 @@
     </div>
 
     <div id="view2" class="hidden">
-        <h1>Choose from this feed of photos</h1>
+        <h1>Choose from this feed of photos</h1><button id='photoFilter' type='button'>Top/Recent</button>
         <div class="photoBanner">
         
         </div>
         <form id="photoUpload">
-        <label for="pic">Upload your own photo to create your meme</label><br>
+        <label for="pic">Upload your own photo by inserting a photo URL</label><br>
         <input type="text" name="pic" id="newPhoto">
         <button type="submit">Submit</button>
         </form>

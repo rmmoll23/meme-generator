@@ -15,12 +15,13 @@
         const memeFeedTopTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i></span>
+            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
         return memeFeedTopTemplate;
       })
+      $('.memeBanner').empty();
       $('.memeBanner').append(memeFeedTop);
       showDivs(1);
     });
@@ -34,14 +35,15 @@
       const memeFeedRecent = memes.map(function(photo) {
         console.log(meme);
         const memeFeedTemplate = 
-          `<div class='parentRecent'>
+          `<div class='parent'>
             <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i></span>
+            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
         return memeFeedTemplate;
       })
+      $('.memeBanner').empty();
       $('.memeBanner').append(memeFeedRecent);
       showDivs(1);
     });
@@ -57,13 +59,14 @@
         const photoSelectionTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>
+            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
         return photoSelectionTemplate;
       })
+      $('.photoBanner').empty();
       $('.photoBanner').append(photoFeedTop);
       showDivs(1);
     });
@@ -75,17 +78,18 @@
     $.getJSON(photoRecent_URL, function(photos) {
       console.log('Rendering recent photos');
       const photoFeedRecent = photos.map(function(photo) {
-        console.log(photo);
         const photoSelectionRecentTemplate = 
-          `<div class='parentRecent'>
+          `<div class='parent'>
             <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>
+            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
           </div>`;
         return photoSelectionRecentTemplate;
       })
+      console.log(photoFeedRecent);
+      $('.photoBanner').empty();
       $('.photoBanner').append(photoFeedRecent);
       showDivs(1);
     });
@@ -133,7 +137,7 @@
   function addMeme(meme) {
     const memePath = {memeURL: meme,
       liked: 0}
-    console.log('Adding meme');
+    console.log('Adding meme'); 
     $.ajax({
       method: 'POST',
       url: memeCreation_URL,
@@ -214,7 +218,16 @@
       const buttonId = $(event.target).attr('id');
       console.log(buttonId);
       getAndDisplayPhotoById(buttonId);
+    });
 
+    $('#photoFilter').click( function(){
+      getAndDisplayPhotoFeed_recent()
+      console.log('filter');
+    });
+
+    $('#memeFilter').click( function(){
+      console.log('filter');
+      getAndDisplayMemeFeed_recent()
     });
 
     $('#view3').on('click', '.submitMemeButton', function(){
@@ -222,7 +235,7 @@
       html2canvas(document.querySelector(".memeContainer")).then(canvas => {
         const memeDataURL = canvas.toDataURL();
         console.log(memeDataURL);
-        // addMeme(memeDataURL);
+        addMeme(memeDataURL);
       });
     });
   

@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 router.get('/top', (req, res) => {
       connect()
       .then(db => {
-        return db.collection('photos').find().sort({liked: 1}).toArray()
+        return db.collection('photos').find().sort({liked: -1}).toArray()
       })
       .then(photos => {
         res.json(photos);
@@ -39,7 +39,7 @@ router.get('/top', (req, res) => {
 router.get('/recent', (req, res) => {
       connect()
       .then(db => {
-        return db.collection('photos').find().sort({date: -1}).toArray()
+        return db.collection('photos').find().sort({date: 1}).toArray()
       })
       .then(photos => {
         res.json(photos);
