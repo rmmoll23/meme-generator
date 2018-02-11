@@ -1,33 +1,49 @@
-const homePageTemplate = (
-    '<div></div>'
-  );
-  
-  
-
-  const memeCreationTemplate = (
-    '<div></div>'
-  );
-  
+'strict'
   
   const serverBase = '//localhost:8080/';
-  const homePage_URL = serverBase + '/';
   const photoSelection_URL = serverBase + 'photos';
   const memeCreation_URL = serverBase + 'memes'
   
   
   function getAndDisplayMemeFeed_top() {
     console.log('Retrieving top memes')
-    const memeTop_URL = homePage_URL + 'top';
+    const memeTop_URL = memeCreation_URL + '/top';
     $.getJSON(memeTop_URL, function(memes) {
       console.log('Rendering top memes');
+      const memeFeedTop = memes.map(function(photo) {
+        console.log(meme);
+        const memeFeedTopTemplate = 
+          `<div class='parent'>
+            <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
+            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i></span>
+            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+           </div>`;
+        return memeFeedTopTemplate;
+      })
+      $('.memeBanner').append(memeFeedTop);
+      showDivs(1);
     });
   }
 
   function getAndDisplayMemeFeed_recent() {
     console.log('Retrieving recent memes')
-    const memeRecent_URL = homePage_URL + 'recent';
+    const memeRecent_URL = memeCreation_URL + '/recent';
     $.getJSON(memeRecent_URL, function(memes) {
       console.log('Rendering recent memes');
+      const memeFeedRecent = memes.map(function(photo) {
+        console.log(meme);
+        const memeFeedTemplate = 
+          `<div class='parentRecent'>
+            <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
+            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i></span>
+            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+           </div>`;
+        return memeFeedTemplate;
+      })
+      $('.memeBanner').append(memeFeedRecent);
+      showDivs(1);
     });
   }
 
@@ -60,18 +76,18 @@ const homePageTemplate = (
       console.log('Rendering recent photos');
       const photoFeedRecent = photos.map(function(photo) {
         console.log(photo);
-        const photoSelectionTemplate = 
-          `<div class='parent'>
+        const photoSelectionRecentTemplate = 
+          `<div class='parentRecent'>
             <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
             <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i></span>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
           </div>`;
-        return photoSelectionTemplate;
+        return photoSelectionRecentTemplate;
       })
       $('.photoBanner').append(photoFeedRecent);
-      
+      showDivs(1);
     });
   }
 
@@ -115,16 +131,29 @@ const homePageTemplate = (
   }
   
   function addMeme(meme) {
+    const memePath = {memeURL: meme,
+      liked: 0}
     console.log('Adding meme');
     $.ajax({
       method: 'POST',
       url: memeCreation_URL,
-      data: JSON.stringify(meme),
+      data: JSON.stringify(memePath),
       success: function(data) {
-        getAndDisplayShoppingList();
+        getAndDisplayMemeFeed_top();
       },
       dataType: 'json',
       contentType: 'application/json'
+    });
+  }
+
+  function updateMeme(id) {
+    console.log('Updating photo `' + id + '`');
+    $.ajax({
+      url: memeCreation_URL + '/' + id,
+      method: 'PUT',
+      success: function(data) {
+        getAndDisplayMemeFeed_top();
+      }
     });
   }
   
@@ -187,10 +216,20 @@ const homePageTemplate = (
       getAndDisplayPhotoById(buttonId);
 
     });
+
+    $('#view3').on('click', '.submitMemeButton', function(){
+      console.log('snapshot');
+      html2canvas(document.querySelector(".memeContainer")).then(canvas => {
+        const memeDataURL = canvas.toDataURL();
+        console.log(memeDataURL);
+        // addMeme(memeDataURL);
+      });
+    });
   
   }
   
   
   $(function() {
+    html2canvas(document.querySelector('h1')).then(canvas => {console.log(canvas)});
     handleEventListeners();
   });
