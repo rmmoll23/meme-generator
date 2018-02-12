@@ -245,9 +245,9 @@
     $('#view3').on('click', '.submitMemeButton', function(){
       console.log('snapshot');
       html2canvas(document.querySelector(".memeContainer")).then(canvas => {
-        console.log(canvas);
+        // console.log(canvas);
         const memeDataURL = canvas.toDataURL();
-        console.log(memeDataURL);
+        // console.log(memeDataURL);
         addMeme(memeDataURL);
       });
     });
