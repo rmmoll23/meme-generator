@@ -6,12 +6,13 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script>
+        let slideIndex = 1;
+        
         function plusDivs(n) {
             showDivs(slideIndex += n);
         }
         
         function showDivs(n) {
-            let slideIndex = 1;
                 console.log(n);
             let x = document.getElementsByClassName("parent");
             if (n > x.length) {slideIndex = 1} 

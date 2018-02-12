@@ -1,7 +1,7 @@
 "use strict";
   
-  const serverBase = 'https://meme-generator-capstone.herokuapp.com/'
-  // const serverBase = '//localhost:8080/';
+  // const serverBase = 'https://meme-generator-capstone.herokuapp.com/'
+  const serverBase = '//localhost:8080/';
   const photoSelection_URL = serverBase + 'photos';
   const memeCreation_URL = serverBase + 'memes'
   
@@ -23,6 +23,7 @@
       })
       $('.memeBanner').empty();
       $('.memeBanner').append(memeFeedTop);
+      slideIndex = 1;
       showDivs(1);
     });
   }
@@ -44,6 +45,7 @@
       })
       $('.memeBanner').empty();
       $('.memeBanner').append(memeFeedRecent);
+      slideIndex = 1;
       showDivs(1);
     });
   }
@@ -67,6 +69,7 @@
       $('.memeBanner').empty();
       $('.photoBanner').empty();
       $('.photoBanner').append(photoFeedTop);
+      slideIndex = 1;
       showDivs(1);
     });
   }
@@ -90,6 +93,7 @@
       $('.memeBanner').empty();
       $('.photoBanner').empty();
       $('.photoBanner').append(photoFeedRecent);
+      slideIndex = 1;
       showDivs(1);
     });
   }
@@ -105,7 +109,7 @@
       <label for='phrase'>Input text for meme</label>
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
-      $('#view3').empty();
+      // $('#view3').empty();
       $('#view3').append(memeTemplate);
       $('#view2').addClass('hidden');
       $('#view3').removeClass('hidden');
@@ -145,6 +149,7 @@
       dataType: 'json',
       contentType: 'application/json'
     });
+    $('.photoBanner').empty();
     getAndDisplayMemeFeed_top();
     $('#view3').addClass('hidden');
     $('#view1').removeClass('hidden');
@@ -247,8 +252,8 @@
       html2canvas(document.querySelector(".memeContainer")).then(canvas => {
         // console.log(canvas);
         const memeDataURL = canvas.toDataURL();
-        // console.log(memeDataURL);
-        addMeme(memeDataURL);
+        console.log(memeDataURL);
+        // addMeme(memeDataURL);
       });
     });
   
