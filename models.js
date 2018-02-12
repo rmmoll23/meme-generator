@@ -22,8 +22,7 @@ PhotoSchema.methods.serialize = function() {
 const Photo = mongoose.model('Photo', PhotoSchema);
 
 const MemeSchema = mongoose.Schema({
-    photoURL: {type: String, required: true},
-    text: {type: String},
+    memeURL: {type: String, required: true},
     liked: {type: Number},
     date: {type: Date, default: Date.now}
   });

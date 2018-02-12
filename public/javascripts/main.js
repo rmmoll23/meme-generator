@@ -1,6 +1,7 @@
 "use strict";
   
-  const serverBase = '//localhost:8080/';
+  const serverBase = 'https://meme-generator-capstone.herokuapp.com/'
+  // const serverBase = '//localhost:8080/';
   const photoSelection_URL = serverBase + 'photos';
   const memeCreation_URL = serverBase + 'memes'
   
@@ -244,8 +245,9 @@
     $('#view3').on('click', '.submitMemeButton', function(){
       console.log('snapshot');
       html2canvas(document.querySelector(".memeContainer")).then(canvas => {
+        console.log(canvas);
         const memeDataURL = canvas.toDataURL();
-        // console.log(memeDataURL);
+        console.log(memeDataURL);
         addMeme(memeDataURL);
       });
     });
