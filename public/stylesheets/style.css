@@ -38,6 +38,12 @@ h1 {
   margin-left: auto;
 }
 
+.memeBanner {
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .parent {
   position: relative;
   width: 100%;
@@ -45,10 +51,12 @@ h1 {
 
 #memeFilter {
   cursor: pointer;
+  margin-left: 10px;
 }
 
 #photoFilter {
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .navButtons {
@@ -87,6 +95,14 @@ h1 {
   font-size: 30px;
 }
 
+.clickableMemeIcon {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
 .selectPhotoButton {
   cursor: pointer;
   position: absolute;
@@ -100,19 +116,23 @@ h1 {
 
 /* view3 */
 
-.memeContainer {
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  height: 600px;
-  }
-
 #view3 {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.imgChoice {
+  width: 70%;
+  height: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.memeContainer {
+  background-size: 100% 100%;
+  width: 100%;
+  height: 600px;
 }
 
 #textBox {
@@ -121,3 +141,5 @@ h1 {
   font-weight: bold;
   padding-top: 20px;
 }
+
+

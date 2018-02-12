@@ -1,4 +1,4 @@
-'strict'
+"use strict";
   
   const serverBase = '//localhost:8080/';
   const photoSelection_URL = serverBase + 'photos';
@@ -10,12 +10,11 @@
     const memeTop_URL = memeCreation_URL + '/top';
     $.getJSON(memeTop_URL, function(memes) {
       console.log('Rendering top memes');
-      const memeFeedTop = memes.map(function(photo) {
-        console.log(meme);
+      const memeFeedTop = memes.map(function(meme) {
         const memeFeedTopTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
+            <span class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
@@ -32,12 +31,11 @@
     const memeRecent_URL = memeCreation_URL + '/recent';
     $.getJSON(memeRecent_URL, function(memes) {
       console.log('Rendering recent memes');
-      const memeFeedRecent = memes.map(function(photo) {
-        console.log(meme);
+      const memeFeedRecent = memes.map(function(meme) {
         const memeFeedTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-            <span class='clickableIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
+            <span class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
             <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
@@ -55,7 +53,6 @@
     $.getJSON(photoTop_URL, function(photos) {
       console.log('Rendering top photos');
       const photoFeedTop = photos.map(function(photo) {
-        console.log(photo);
         const photoSelectionTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
@@ -66,6 +63,7 @@
            </div>`;
         return photoSelectionTemplate;
       })
+      $('.memeBanner').empty();
       $('.photoBanner').empty();
       $('.photoBanner').append(photoFeedTop);
       showDivs(1);
@@ -88,7 +86,7 @@
           </div>`;
         return photoSelectionRecentTemplate;
       })
-      console.log(photoFeedRecent);
+      $('.memeBanner').empty();
       $('.photoBanner').empty();
       $('.photoBanner').append(photoFeedRecent);
       showDivs(1);
@@ -99,13 +97,14 @@
     console.log('Retrieving photo to display')
     const photoChoice_URL = photoSelection_URL + '/' + id;
     $.getJSON(photoChoice_URL, function(photo) {
-      console.log(photo);
       const memeTemplate = `<h1>Create your Meme</h1>
+      <div class='imgChoice'>
       <div class='memeContainer' style='background-image: url(${photo.photoURL})'>
-      <div id='textBox'>hello</div></div>
+      <div id='textBox'>hello</div></div></div>
       <label for='phrase'>Input text for meme</label>
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
+      $('#view3').empty();
       $('#view3').append(memeTemplate);
       $('#view2').addClass('hidden');
       $('#view3').removeClass('hidden');
@@ -142,16 +141,17 @@
       method: 'POST',
       url: memeCreation_URL,
       data: JSON.stringify(memePath),
-      success: function(data) {
-        getAndDisplayMemeFeed_top();
-      },
       dataType: 'json',
       contentType: 'application/json'
     });
+    getAndDisplayMemeFeed_top();
+    $('#view3').addClass('hidden');
+    $('#view1').removeClass('hidden');
+
   }
 
   function updateMeme(id) {
-    console.log('Updating photo `' + id + '`');
+    console.log('Updating meme `' + id + '`');
     $.ajax({
       url: memeCreation_URL + '/' + id,
       method: 'PUT',
@@ -193,11 +193,13 @@
       addPhoto({photoURL: photo,
       liked: 0});
       const createMemeTemplate = `<h1>Create your Meme</h1>
+      <div class='imgChoice'>
       <div class='memeContainer' style='background-image: url(${photo})'>
-      <div id='textBox'></div></div>
+      <div id='textBox'></div></div></div>
       <label for='phrase'>Input text for meme</label>
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
+      $('#view3').empty();
       $('#view3').append(createMemeTemplate);
       $('#view2').addClass('hidden');
       $('#view3').removeClass('hidden');
@@ -213,8 +215,17 @@
       updatePhoto(starId);
     });
 
+    $('.memeBanner').on('click', '.clickableMemeIcon', function(){
+      console.log('liked');
+      let memeIcon = $(event.target);
+      if (!memeIcon.hasClass('clickableMemeIcon')) {
+        memeIcon = memeIcon.closest('.clickableMemeIcon');
+      }
+      const memeId = memeIcon.attr('id');
+      updateMeme(memeId);
+    });
+
     $('.photoBanner').on('click', '.selectPhotoButton', function(){
-      console.log(event.target);
       const buttonId = $(event.target).attr('id');
       console.log(buttonId);
       getAndDisplayPhotoById(buttonId);
@@ -234,7 +245,7 @@
       console.log('snapshot');
       html2canvas(document.querySelector(".memeContainer")).then(canvas => {
         const memeDataURL = canvas.toDataURL();
-        console.log(memeDataURL);
+        // console.log(memeDataURL);
         addMeme(memeDataURL);
       });
     });
@@ -243,6 +254,6 @@
   
   
   $(function() {
-    html2canvas(document.querySelector('h1')).then(canvas => {console.log(canvas)});
     handleEventListeners();
+    getAndDisplayMemeFeed_top();
   });
