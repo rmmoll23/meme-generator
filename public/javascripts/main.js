@@ -106,9 +106,11 @@
       <div class='imgChoice'>
       <div class='memeContainer' style='background-image: url(${photo.photoURL})'>
       <div id='textBox'>hello</div></div></div>
+      <form id='memeSubmit'>
       <label for='phrase'>Input text for meme</label>
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
-      <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
+      <button class='submitMemeButton' type='submit'>Submit Meme</button>
+      </form>`;
       // $('#view3').empty();
       $('#view3').append(memeTemplate);
       $('#view2').addClass('hidden');
@@ -202,9 +204,11 @@
       <div class='imgChoice'>
       <div class='memeContainer' style='background-image: url(${photo})'>
       <div id='textBox'></div></div></div>
+      <form id='memeSubmit'>
       <label for='phrase'>Input text for meme</label>
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
-      <button class='submitMemeButton' type='submit'>Submit Meme</button>`;
+      <button class='submitMemeButton' type='submit'>Submit Meme</button>
+      </form>`;
       $('#view3').empty();
       $('#view3').append(createMemeTemplate);
       $('#view2').addClass('hidden');
