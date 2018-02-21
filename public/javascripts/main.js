@@ -111,10 +111,10 @@
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>
       </form>`;
-      // $('#view3').empty();
-      $('#view3').append(memeTemplate);
-      $('#view2').addClass('hidden');
-      $('#view3').removeClass('hidden');
+      // $('#memeCreationPage').empty();
+      $('#memeCreationPage').append(memeTemplate);
+      $('#photoSelectionPage').addClass('hidden');
+      $('#memeCreationPage').removeClass('hidden');
     });
   }
   
@@ -153,8 +153,8 @@
     });
     $('.photoBanner').empty();
     getAndDisplayMemeFeed_top();
-    $('#view3').addClass('hidden');
-    $('#view1').removeClass('hidden');
+    $('#memeCreationPage').addClass('hidden');
+    $('#homePage').removeClass('hidden');
 
   }
 
@@ -190,8 +190,8 @@
   function handleEventListeners() {
 
     $('.home').on('click', '#create', function(event) {
-      $('#view1').addClass('hidden');
-      $('#view2').removeClass('hidden');
+      $('#homePage').addClass('hidden');
+      $('#photoSelectionPage').removeClass('hidden');
       getAndDisplayPhotoFeed_top();
     });
   
@@ -209,10 +209,10 @@
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>
       </form>`;
-      $('#view3').empty();
-      $('#view3').append(createMemeTemplate);
-      $('#view2').addClass('hidden');
-      $('#view3').removeClass('hidden');
+      $('#memeCreationPage').empty();
+      $('#memeCreationPage').append(createMemeTemplate);
+      $('#photoSelectionPage').addClass('hidden');
+      $('#memeCreationPage').removeClass('hidden');
     });
 
     $('.photoBanner').on('click', '.clickableIcon', function(){
@@ -251,13 +251,14 @@
       getAndDisplayMemeFeed_recent()
     });
 
-    $('#view3').on('click', '.submitMemeButton', function(){
+    $('#memeCreationPage').on('click', '.submitMemeButton', function(){
+      event.preventDefault();
       console.log('snapshot');
       html2canvas(document.querySelector(".memeContainer")).then(canvas => {
         // console.log(canvas);
         const memeDataURL = canvas.toDataURL();
         console.log(memeDataURL);
-        // addMeme(memeDataURL);
+        addMeme(memeDataURL);
       });
     });
   
