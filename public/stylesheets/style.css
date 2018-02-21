@@ -3,13 +3,13 @@ body {
   background: cover;
 }
 
-#view1 {
+#homePage {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
 
-#view2 {
+#photoSelectionPage {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -158,9 +158,9 @@ h1 {
   margin-right: 7px;
 }
 
-/* view3 */
+/* memeCreationPage */
 
-#view3 {
+#memeCreationPage {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
