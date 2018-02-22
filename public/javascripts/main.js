@@ -10,7 +10,6 @@
     console.log('Retrieving top memes')
     const memeTop_URL = memeCreation_URL + '/top';
     $.getJSON(memeTop_URL, function(memes) {
-      console.log('Rendering top memes');
       const memeFeedTop = memes.map(function(meme) {
         const memeFeedTopTemplate = 
           `<div class='parent'>
@@ -25,6 +24,7 @@
       $('.memeBanner').append(memeFeedTop);
       slideIndex = 1;
       showDivs(1);
+      $('body').loader('hide');
     });
   }
 
@@ -58,11 +58,13 @@
       const photoFeedTop = photos.map(function(photo) {
         const photoSelectionTemplate = 
           `<div class='parent'>
-            <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+            <div class='photo'>
+              <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
+              <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+              <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+            </div>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
-            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
         return photoSelectionTemplate;
       })
@@ -82,11 +84,13 @@
       const photoFeedRecent = photos.map(function(photo) {
         const photoSelectionRecentTemplate = 
           `<div class='parent'>
-            <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-            <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+            <div class='photo'>
+              <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
+              <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+              <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+            </div>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
-            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
           </div>`;
         return photoSelectionRecentTemplate;
       })
@@ -169,14 +173,14 @@
     });
   }
   
-  function deletePhoto(photoId) {
-    console.log('Deleting recipe `' + photoId + '`');
-    $.ajax({
-      url: photoSelectionURL + '/' + photoId,
-      method: 'DELETE',
-      success: getAndDisplayRecipes
-    });
-  }
+  // function deletePhoto(photoId) {
+  //   console.log('Deleting recipe `' + photoId + '`');
+  //   $.ajax({
+  //     url: photoSelectionURL + '/' + photoId,
+  //     method: 'DELETE',
+  //     success: getAndDisplayRecipes
+  //   });
+  // }
 
   function memeText() {
     let input = $('#phrase').val();
@@ -195,25 +199,25 @@
       getAndDisplayPhotoFeed_top();
     });
   
-    $('#photoUpload').submit(function(event) {
-      event.preventDefault();
-      const photo = $(event.currentTarget).find('#newPhoto').val();
-      addPhoto({photoURL: photo,
-      liked: 0});
-      const createMemeTemplate = `<h1>Create your Meme</h1>
-      <div class='imgChoice'>
-      <div class='memeContainer' style='background-image: url(${photo})'>
-      <div id='textBox'></div></div></div>
-      <form id='memeSubmit'>
-      <label for='phrase'>Input text for meme</label>
-      <input type='text' id='phrase' onkeyup='memeText()'/><br>
-      <button class='submitMemeButton' type='submit'>Submit Meme</button>
-      </form>`;
-      $('#memeCreationPage').empty();
-      $('#memeCreationPage').append(createMemeTemplate);
-      $('#photoSelectionPage').addClass('hidden');
-      $('#memeCreationPage').removeClass('hidden');
-    });
+    // $('#photoUpload').submit(function(event) {
+    //   event.preventDefault();
+    //   const photo = $(event.currentTarget).find('#newPhoto').val();
+    //   addPhoto({photoURL: photo,
+    //   liked: 0});
+    //   const createMemeTemplate = `<h1>Create your Meme</h1>
+    //   <div class='imgChoice'>
+    //   <div class='memeContainer' style='background-image: url(${photo})'>
+    //   <div id='textBox'></div></div></div>
+    //   <form id='memeSubmit'>
+    //   <label for='phrase'>Input text for meme</label>
+    //   <input type='text' id='phrase' onkeyup='memeText()'/><br>
+    //   <button class='submitMemeButton' type='submit'>Submit Meme</button>
+    //   </form>`;
+    //   $('#memeCreationPage').empty();
+    //   $('#memeCreationPage').append(createMemeTemplate);
+    //   $('#photoSelectionPage').addClass('hidden');
+    //   $('#memeCreationPage').removeClass('hidden');
+    // });
 
     $('.photoBanner').on('click', '.clickableIcon', function(){
       console.log('liked');
@@ -266,6 +270,7 @@
   
   
   $(function() {
+    $('body').loader('show');
     handleEventListeners();
     getAndDisplayMemeFeed_top();
   });

@@ -53,6 +53,7 @@ h1 {
   width: 50%;
   margin-right: auto;
   margin-left: auto;
+  position: relative;
 }
 
 .parent {
@@ -100,7 +101,7 @@ h1 {
 }
 
 .fa-star {
-  top: 15px;
+  bottom: 15px;
   right: 15px;
   cursor: pointer;
   font-size:30px;
@@ -108,20 +109,24 @@ h1 {
 
 .clickableIcon {
   position: absolute;
-  top: 15px;
+  bottom: 15px;
   right: 20px;
   font-weight: bold;
   font-size: 30px;
   color: white;
+  padding: 5px;
+  background-color: black;
 }
 
 .clickableMemeIcon {
   position: absolute;
-  top: 15px;
+  bottom: 15px;
   right: 20px;
   font-weight: bold;
   font-size: 30px;
   color: white;
+  padding: 5px;
+  background-color: black;
 }
 
 #photoUpload {
@@ -143,19 +148,20 @@ h1 {
   background-color: lightgray
 }
 
+.photo {
+  position: relative;
+}
+
 .selectPhotoButton {
   cursor: pointer;
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
   background-color: black;
   color: white;
   border-color: black;
   border-radius: 5px;
   font-size: x-large;
   padding: 7px;
-  margin-bottom: 7px;
-  margin-right: 7px;
+  margin-top: 20px;
+  width: fit-content;
 }
 
 /* memeCreationPage */
@@ -168,15 +174,17 @@ h1 {
 
 .imgChoice {
   width: 70%;
-  height: 600px;
+  height: 450px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .memeContainer {
   background-size: 100% 100%;
-  width: 100%;
-  height: 600px;
+  width: 80%;
+  margin-left: auto;
+  height: 450px;
+  margin-right: auto;
 }
 
 #textBox {
