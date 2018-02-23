@@ -192,6 +192,7 @@ h1 {
   font-size: 60px;
   font-weight: 900;
   padding-top: 20px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .submitMemeButton {
@@ -214,4 +215,34 @@ label {
 }
 
 
+@media only screen and (max-width: 480px) {
 
+  .memeContainer {
+    background-size: 100% 100%;
+    width: 90%;
+    margin-left: auto;
+    height: 400px;
+    margin-right: auto;
+}
+
+  .imgChoice {
+    width: 100%;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .memeBanner {
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+}
+
+.photoBanner {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+}
