@@ -3,6 +3,7 @@
 
 <head>
     <title>Meme-Generator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <link href="../stylesheets/jquery.loader.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
@@ -14,14 +15,14 @@
         }
         
         function showDivs(n) {
-                console.log(n);
+                // console.log(n);
             let x = document.getElementsByClassName("parent");
             if (n > x.length) {slideIndex = 1} 
             if (n < 1) {slideIndex = x.length}
             for (let i = 0; i < x.length; i++) {
                 x[i].style.display = "none";  
             }
-            console.log(slideIndex, x.length);
+            // console.log(slideIndex, x.length);
             x[slideIndex-1].style.display = "block";  
         }
 </script>
@@ -31,7 +32,7 @@
  <main role="main" class="home">
    
     <div id="homePage">
-        <h1>Check out all of the top and most recent memes created<button type='button' id='memeFilter'>Top/Recent</button></h1>
+        <h1 id='memeHeader'>Check out all of the top and most recent memes created<button type='button' id='memeFilter'><span id='top' class='selectedFilter'>Top</span>/<span id='recent'>Recent</span></button></h1>
         
         <div class="memeBanner">
             
@@ -41,7 +42,7 @@
     </div>
 
     <div id="photoSelectionPage" class="hidden">
-        <h1>Choose from this feed of photos<button id='photoFilter' type='button'>Top/Recent</button></h1>
+        <h1 id='photoHeader'>Choose from this feed of photos<button id='photoFilter' type='button'><span id='topPhoto' class='selectedFilter'>Top</span>/<span id='recentPhoto'>Recent</span></button></h1>
         <div class="photoBanner">
         
         </div>

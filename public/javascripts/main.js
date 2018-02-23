@@ -7,6 +7,7 @@
   
   
   function getAndDisplayMemeFeed_top() {
+    $('body').loader('show');
     console.log('Retrieving top memes')
     const memeTop_URL = memeCreation_URL + '/top';
     $.getJSON(memeTop_URL, function(memes) {
@@ -29,7 +30,7 @@
   }
 
   function getAndDisplayMemeFeed_recent() {
-    console.log('Retrieving recent memes')
+    $('body').loader('show');
     const memeRecent_URL = memeCreation_URL + '/recent';
     $.getJSON(memeRecent_URL, function(memes) {
       console.log('Rendering recent memes');
@@ -47,11 +48,12 @@
       $('.memeBanner').append(memeFeedRecent);
       slideIndex = 1;
       showDivs(1);
+      $('body').loader('hide');
     });
   }
 
   function getAndDisplayPhotoFeed_top() {
-    console.log('Retrieving top photos')
+    $('body').loader('show');
     const photoTop_URL = photoSelection_URL + '/top';
     $.getJSON(photoTop_URL, function(photos) {
       console.log('Rendering top photos');
@@ -73,11 +75,12 @@
       $('.photoBanner').append(photoFeedTop);
       slideIndex = 1;
       showDivs(1);
+      $('body').loader('hide');
     });
   }
 
   function getAndDisplayPhotoFeed_recent() {
-    console.log('Retrieving recent photos')
+    $('body').loader('show');
     const photoRecent_URL = photoSelection_URL + '/recent';
     $.getJSON(photoRecent_URL, function(photos) {
       console.log('Rendering recent photos');
@@ -99,6 +102,7 @@
       $('.photoBanner').append(photoFeedRecent);
       slideIndex = 1;
       showDivs(1);
+      $('body').loader('hide');
     });
   }
 
@@ -122,16 +126,16 @@
     });
   }
   
-  function addPhoto(photo) {
-    console.log(photo);
-    $.ajax({
-      method: 'POST',
-      url: photoSelection_URL,
-      data: JSON.stringify(photo),
-      dataType: 'json',
-      contentType: 'application/json'
-    });
-  }
+  // function addPhoto(photo) {
+  //   console.log(photo);
+  //   $.ajax({
+  //     method: 'POST',
+  //     url: photoSelection_URL,
+  //     data: JSON.stringify(photo),
+  //     dataType: 'json',
+  //     contentType: 'application/json'
+  //   });
+  // }
 
   function updatePhoto(id) {
     console.log('Updating photo `' + id + '`');
@@ -153,10 +157,12 @@
       url: memeCreation_URL,
       data: JSON.stringify(memePath),
       dataType: 'json',
-      contentType: 'application/json'
+      contentType: 'application/json',
+      success: function(data) {
+        getAndDisplayMemeFeed_top();
+      }
     });
     $('.photoBanner').empty();
-    getAndDisplayMemeFeed_top();
     $('#memeCreationPage').addClass('hidden');
     $('#homePage').removeClass('hidden');
 
@@ -245,15 +251,45 @@
       getAndDisplayPhotoById(buttonId);
     });
 
-    $('#photoFilter').click( function(){
-      getAndDisplayPhotoFeed_recent()
-      console.log('filter');
-    });
+    $('#memeFilter').click(function() {
+      $('#memeFilter').toggleClass('checked');
+      let classState = $('#memeFilter').attr('class');
+      console.log(classState);
+      if (classState === 'checked') {
+        console.log('true');
+        $('#recent').addClass('selectedFilter');
+        $('#top').removeClass('selectedFilter');
+        getAndDisplayMemeFeed_recent();
+      }
+      
+      else {
+        console.log('false');
+        $('#top').addClass('selectedFilter');
+        $('#recent').removeClass('selectedFilter');
+        getAndDisplayMemeFeed_top();
+        
+      }
+    })
 
-    $('#memeFilter').click( function(){
-      console.log('filter');
-      getAndDisplayMemeFeed_recent()
-    });
+    $('#photoFilter').click(function() {
+      $('#photoFilter').toggleClass('checked');
+      let classState = $('#photoFilter').attr('class');
+      console.log(classState);
+      if (classState === 'checked') {
+        console.log('true');
+        $('#recentPhoto').addClass('selectedFilter');
+        $('#topPhoto').removeClass('selectedFilter');
+        getAndDisplayPhotoFeed_recent();
+      }
+      
+      else {
+        console.log('false');
+        $('#topPhoto').addClass('selectedFilter');
+        $('#recentPhoto').removeClass('selectedFilter');
+        getAndDisplayPhotoFeed_top();
+        
+      }
+    })
 
     $('#memeCreationPage').on('click', '.submitMemeButton', function(){
       event.preventDefault();
@@ -270,7 +306,6 @@
   
   
   $(function() {
-    $('body').loader('show');
     handleEventListeners();
-    getAndDisplayMemeFeed_top();
+    // getAndDisplayMemeFeed_top();
   });
