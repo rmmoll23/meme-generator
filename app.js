@@ -30,8 +30,6 @@ app.use('/photos', photosRouter);
 app.use('/photos/:id', photosRouter);
 app.use('/memes', memesRouter);
 app.use('/memes/:id', memesRouter);
-app.use('/users', users);
-
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/views/homePage.html');

@@ -31,8 +31,7 @@ const MemeSchema = mongoose.Schema({
   MemeSchema.methods.serialize = function() {
     return {
       id: this._id,
-      photoURL: this.photoURL,
-      text: this.text,
+      memeURL: this.memeURL,
       liked: this.liked,
       date: this.date,
     };
