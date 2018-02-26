@@ -182,6 +182,27 @@ h1 {
   font-weight: bold;
 }
 
+.homeLink {
+  border-top: black solid 1px;
+  padding-top: 10px;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+}
+
+#navBarPhotoPage {
+  cursor: pointer;
+}
+
+#navBarMemePageToHome {
+  cursor: pointer;
+}
+
+#navBarMemePageToPhoto {
+  cursor: pointer;
+}
+
 /* memeCreationPage */
 
 #memeCreationPage {
@@ -192,16 +213,16 @@ h1 {
 
 .imgChoice {
   width: 70%;
-  height: 450px;
+  height: 400px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .memeContainer {
   background-size: 100% 100%;
-  width: 80%;
+  width: 75%;
   margin-left: auto;
-  height: 450px;
+  height: 400px;
   margin-right: auto;
 }
 
@@ -240,13 +261,13 @@ label {
     background-size: 100% 100%;
     width: 90%;
     margin-left: auto;
-    height: 400px;
+    height: 350px;
     margin-right: auto;
 }
 
   .imgChoice {
     width: 100%;
-    height: 400px;
+    height: 350px;
     margin-left: auto;
     margin-right: auto;
   }

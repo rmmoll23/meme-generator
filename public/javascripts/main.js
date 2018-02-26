@@ -110,7 +110,7 @@
     console.log('Retrieving photo to display')
     const photoChoice_URL = photoSelection_URL + '/' + id;
     $.getJSON(photoChoice_URL, function(photo) {
-      const memeTemplate = `<h1>Create your Meme</h1>
+      const memeTemplate = `<div id='dynamicMeme'><h1>Create your Meme</h1>
       <div class='imgChoice'>
       <div class='memeContainer' style='background-image: url(${photo.photoURL})'>
       <div id='textBox'>hello</div></div></div>
@@ -118,9 +118,9 @@
       <label for='phrase'>Input text for meme:</label>
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>
-      </form>`;
+      </form></div>`;
       // $('#memeCreationPage').empty();
-      $('#memeCreationPage').append(memeTemplate);
+      $('#memeCreationPage').prepend(memeTemplate);
       $('#photoSelectionPage').addClass('hidden');
       $('#memeCreationPage').removeClass('hidden');
     });
@@ -143,6 +143,7 @@
       url: photoSelection_URL + '/' + id,
       method: 'PUT',
       success: function(data) {
+        console.log('success');
         getAndDisplayPhotoFeed_top();
       }
     });
@@ -158,10 +159,14 @@
       data: JSON.stringify(memePath),
       dataType: 'json',
       contentType: 'application/json',
-      success: function(data) {
-        getAndDisplayMemeFeed_top();
+      success: function () {
+        console.log('success');
+      },
+      error: function (error) {
+        console.log(error);
       }
-    });
+    }).done(getAndDisplayMemeFeed_top());
+
     $('.photoBanner').empty();
     $('#memeCreationPage').addClass('hidden');
     $('#homePage').removeClass('hidden');
@@ -174,7 +179,7 @@
       url: memeCreation_URL + '/' + id,
       method: 'PUT',
       success: function(data) {
-        getAndDisplayMemeFeed_top();
+        console.log('success');
       }
     });
   }
@@ -210,7 +215,7 @@
     //   const photo = $(event.currentTarget).find('#newPhoto').val();
     //   addPhoto({photoURL: photo,
     //   liked: 0});
-    //   const createMemeTemplate = `<h1>Create your Meme</h1>
+    //   const createMemeTemplate = `<div id='dynamicMeme'><h1>Create your Meme</h1>
     //   <div class='imgChoice'>
     //   <div class='memeContainer' style='background-image: url(${photo})'>
     //   <div id='textBox'></div></div></div>
@@ -218,9 +223,9 @@
     //   <label for='phrase'>Input text for meme:</label>
     //   <input type='text' id='phrase' onkeyup='memeText()'/><br>
     //   <button class='submitMemeButton' type='submit'>Submit Meme</button>
-    //   </form>`;
+    //   </form></div>`;
     //   $('#memeCreationPage').empty();
-    //   $('#memeCreationPage').append(createMemeTemplate);
+    //   $('#memeCreationPage').prepend(createMemeTemplate);
     //   $('#photoSelectionPage').addClass('hidden');
     //   $('#memeCreationPage').removeClass('hidden');
     // });
@@ -300,6 +305,24 @@
         console.log(memeDataURL);
         addMeme(memeDataURL);
       });
+    });
+
+    $('#navBarMemePageToHome').click(function() {
+      $('#memeCreationPage').addClass('hidden');
+      $('#homePage').removeClass('hidden');
+      getAndDisplayMemeFeed_top();
+    });
+
+    $('#navBarMemePageToPhoto').click(function() {
+      $('#memeCreationPage').addClass('hidden');
+      $('#photoSelectionPage').removeClass('hidden');
+      $('#dynamicMeme').empty();
+    });
+
+    $('#navBarPhotoPage').click(function() {
+      $('#photoSelectionPage').addClass('hidden');
+      $('#homePage').removeClass('hidden');
+      getAndDisplayMemeFeed_top();
     });
   
   }
