@@ -10,8 +10,6 @@ const {PORT, DATABASE_URL} = require('./config');
 
 mongoose.Promise = global.Promise;
 
-
-const users = require('./routes/users');
 const photosRouter = require('./routes/photosRouter');
 const memesRouter = require('./routes/memesRouter');
 

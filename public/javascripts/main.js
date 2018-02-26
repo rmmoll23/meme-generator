@@ -1,9 +1,9 @@
 "use strict";
   
-  const serverBase = 'https://meme-generator-capstone.herokuapp.com/'
-  // const serverBase = '//localhost:8080/';
+  // const serverBase = 'https://meme-generator-capstone.herokuapp.com/';
+  const serverBase = '//localhost:8080/';
   const photoSelection_URL = serverBase + 'photos';
-  const memeCreation_URL = serverBase + 'memes'
+  const memeCreation_URL = serverBase + 'memes';
   
   
   function getAndDisplayMemeFeed_top() {
@@ -307,5 +307,5 @@
   
   $(function() {
     handleEventListeners();
-    // getAndDisplayMemeFeed_top();
+    getAndDisplayMemeFeed_top();
   });
