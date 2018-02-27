@@ -15,9 +15,9 @@
         const memeFeedTopTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-            <span class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
-            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+            <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
+            <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+            <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
         return memeFeedTopTemplate;
       })
@@ -36,12 +36,12 @@
       console.log('Rendering recent memes');
       const memeFeedRecent = memes.map(function(meme) {
         const memeFeedTemplate = 
-          `<div class='parent'>
-            <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-            <span class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
-            <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
-           </div>`;
+        `<div class='parent'>
+        <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
+        <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
+        <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+        <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+       </div>`;
         return memeFeedTemplate;
       })
       $('.memeBanner').empty();
@@ -62,9 +62,9 @@
           `<div class='parent'>
             <div class='photo'>
               <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-              <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
-              <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-              <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+              <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
             </div>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
            </div>`;
@@ -89,9 +89,9 @@
           `<div class='parent'>
             <div class='photo'>
               <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-              <span class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
-              <button class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-              <button class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
+              <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
             </div>
             <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
           </div>`;
@@ -323,6 +323,18 @@
       $('#photoSelectionPage').addClass('hidden');
       $('#homePage').removeClass('hidden');
       getAndDisplayMemeFeed_top();
+    });
+
+    $(".memeBanner").on("keyup", ".clickableIcon", function(event) {
+      if (event.keyCode === 13) {
+        $(this).click();
+      }
+    });
+
+    $(".photoBanner").on("keyup", ".clickableIcon", function(event) {
+      if (event.keyCode === 13) {
+        $(this).click();
+      }
     });
   
   }
