@@ -93,7 +93,7 @@ describe('GET endpoint', function() {
           res.body.forEach(function(photo) {
             expect(photo).to.be.a('object');
             expect(photo).to.include.keys(
-              'id', 'photoURL', 'liked', 'date');
+              '_id', 'photoURL', 'liked', 'date');
           });
         //   resPhoto = res.body[0];
         //   return Photo.findById(resPhoto.id);

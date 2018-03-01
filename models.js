@@ -1,3 +1,4 @@
+
 'use strict';
 
 const mongoose = require('mongoose');
@@ -24,7 +25,7 @@ const Photo = mongoose.model('Photo', PhotoSchema);
 const MemeSchema = mongoose.Schema({
     memeURL: {type: String, required: true},
     liked: {type: Number},
-    date: {type: Date, default: Date.now}
+    date: {type: Date, default: Date.now},
   });
   
   

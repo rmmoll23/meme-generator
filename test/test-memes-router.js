@@ -93,7 +93,7 @@ describe('GET endpoint', function() {
           res.body.forEach(function(meme) {
             expect(meme).to.be.a('object');
             expect(meme).to.include.keys(
-              'id', 'memeURL', 'liked', 'date');
+              '_id', 'memeURL', 'liked', 'date');
           });
   //         resMeme = res.body[0];
   //         return Meme.findById(resMeme.id);

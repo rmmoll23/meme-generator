@@ -14,8 +14,8 @@
       const memeFeedTop = memes.map(function(meme) {
         const memeFeedTopTemplate = 
           `<div class='parent'>
-            <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-            <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
+            <img class='mySlides' id='${meme._id}' src='${meme.memeURL}'>
+            <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i>${meme.liked}</span>
             <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
@@ -37,8 +37,8 @@
       const memeFeedRecent = memes.map(function(meme) {
         const memeFeedTemplate = 
         `<div class='parent'>
-        <img class='mySlides' id='${meme.id}' src='${meme.memeURL}'>
-        <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme.id}'><i class='far fa-star'></i>${meme.liked}</span>
+        <img class='mySlides' id='${meme._id}' src='${meme.memeURL}'>
+        <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i>${meme.liked}</span>
         <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
         <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
        </div>`;
@@ -61,12 +61,12 @@
         const photoSelectionTemplate = 
           `<div class='parent'>
             <div class='photo'>
-              <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <img class='mySlides' id='${photo._id}' src='${photo.photoURL}'>
+              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i>${photo.liked}</span>
               <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
               <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
             </div>
-            <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
+            <button class='selectPhotoButton' id='${photo._id}' type='button'>Create meme with this photo</button>
            </div>`;
         return photoSelectionTemplate;
       })
@@ -88,12 +88,12 @@
         const photoSelectionRecentTemplate = 
           `<div class='parent'>
             <div class='photo'>
-              <img class='mySlides' id='${photo.id}' src='${photo.photoURL}'>
-              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo.id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <img class='mySlides' id='${photo._id}' src='${photo.photoURL}'>
+              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i>${photo.liked}</span>
               <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
               <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
             </div>
-            <button class='selectPhotoButton' id='${photo.id}' type='button'>Create meme with this photo</button>
+            <button class='selectPhotoButton' id='${photo._id}' type='button'>Create meme with this photo</button>
           </div>`;
         return photoSelectionRecentTemplate;
       })
@@ -119,7 +119,7 @@
       <input type='text' id='phrase' onkeyup='memeText()'/><br>
       <button class='submitMemeButton' type='submit'>Submit Meme</button>
       </form></div>`;
-      // $('#memeCreationPage').empty();
+      $('#dynamicMeme').empty();
       $('#memeCreationPage').prepend(memeTemplate);
       $('#photoSelectionPage').addClass('hidden');
       $('#memeCreationPage').removeClass('hidden');
@@ -168,6 +168,7 @@
     }).done(getAndDisplayMemeFeed_top());
 
     $('.photoBanner').empty();
+    $('#dynamicMeme').empty();
     $('#memeCreationPage').addClass('hidden');
     $('#homePage').removeClass('hidden');
 
@@ -180,6 +181,7 @@
       method: 'PUT',
       success: function(data) {
         console.log('success');
+        getAndDisplayMemeFeed_top();
       }
     });
   }
@@ -237,16 +239,19 @@
         icon = icon.closest('.clickableIcon');
       }
       const starId = icon.attr('id');
+      console.log(starId);
       updatePhoto(starId);
     });
 
     $('.memeBanner').on('click', '.clickableMemeIcon', function(){
       console.log('liked');
       let memeIcon = $(event.target);
+      console.log(memeIcon);
       if (!memeIcon.hasClass('clickableMemeIcon')) {
         memeIcon = memeIcon.closest('.clickableMemeIcon');
       }
       const memeId = memeIcon.attr('id');
+      console.log(memeId);
       updateMeme(memeId);
     });
 
@@ -300,16 +305,16 @@
       event.preventDefault();
       console.log('snapshot');
       html2canvas(document.querySelector(".memeContainer")).then(canvas => {
-        // console.log(canvas);
         const memeDataURL = canvas.toDataURL();
-        console.log(memeDataURL);
         addMeme(memeDataURL);
       });
     });
 
     $('#navBarMemePageToHome').click(function() {
+      console.log('first');
       $('#memeCreationPage').addClass('hidden');
       $('#homePage').removeClass('hidden');
+      $('.photoBanner').empty();
       getAndDisplayMemeFeed_top();
     });
 
@@ -320,8 +325,10 @@
     });
 
     $('#navBarPhotoPage').click(function() {
+      console.log('second');
       $('#photoSelectionPage').addClass('hidden');
       $('#homePage').removeClass('hidden');
+      $('.photoBanner').empty();
       getAndDisplayMemeFeed_top();
     });
 

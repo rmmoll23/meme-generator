@@ -4,15 +4,10 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const uuid = require('uuid/v1');
-
-// const {Photo} = require('../models');
-const connect = require('../connect');
+const {Photo} = require('../models');
 
 router.get('/', (req, res) => {
-      connect()
-      .then(db => {
-        return db.collection('photos').find().toArray()
-      })
+      Photo.find()
       .then(photos => {
         res.json(photos);
       })
@@ -23,10 +18,7 @@ router.get('/', (req, res) => {
   });
 
 router.get('/top', (req, res) => {
-      connect()
-      .then(db => {
-        return db.collection('photos').find().sort({liked: -1}).toArray()
-      })
+      Photo.find().sort({liked: -1})
       .then(photos => {
         res.json(photos);
       })
@@ -37,10 +29,7 @@ router.get('/top', (req, res) => {
   });
 
 router.get('/recent', (req, res) => {
-      connect()
-      .then(db => {
-        return db.collection('photos').find().sort({date: 1}).toArray()
-      })
+      Photo.find().sort({date: 1})
       .then(photos => {
         res.json(photos);
       })
@@ -51,11 +40,7 @@ router.get('/recent', (req, res) => {
     });
   
   router.get('/:id', (req, res) => {
-      connect()
-      .then(db => {
-        console.log(req.params.id);
-        return db.collection('photos').findOne({id: req.params.id})
-      })
+      Photo.findById(req.params.id)
       .then(photo => res.json(photo))
       .catch(err => {
         console.error(err);
@@ -74,15 +59,12 @@ router.get('/recent', (req, res) => {
       }
     }
   
-      connect()
-      .then(db => {
-        db.collection('photos').insert({
+      Photo.create({
           photoURL: req.body.photoURL, 
           date: new Date().toString(),
           liked: 0,
           id: uuid()
         })
-      })
       .then(photos => res.status(201).json(photos))
       .catch(err => {
         console.error(err);
@@ -93,10 +75,7 @@ router.get('/recent', (req, res) => {
   
   
   router.delete('/:id', (req, res) => {
-    connect()
-      .then(db => {
-        db.collection('photos').findByIdAndRemove(req.params.id)
-      })
+    Photo.findByIdAndRemove(req.params.id)
       .then(() => {
         res.status(204).json({ message: 'success' });
       })
@@ -118,10 +97,7 @@ router.get('/recent', (req, res) => {
       }
     }
   
-    connect()
-      .then(db => {
-        db.collection('photos').findOneAndUpdate({'id': req.params.id}, { $inc: {'liked': 1} }, { returnNewDocument: true })
-      })
+    Photo.findByIdAndUpdate(req.params.id, { $inc: {'liked': 1} }, { returnNewDocument: true })
       .then(updatedPhoto => res.status(204).end())
       .catch(err => res.status(500).json({ message: 'Something went wrong' }));
   });
