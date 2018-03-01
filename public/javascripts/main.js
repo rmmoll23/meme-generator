@@ -1,7 +1,7 @@
 "use strict";
   
-  // const serverBase = 'https://meme-generator-capstone.herokuapp.com/';
-  const serverBase = '//localhost:8080/';
+  const serverBase = 'https://meme-generator-capstone.herokuapp.com/';
+  // const serverBase = '//localhost:8080/';
   const photoSelection_URL = serverBase + 'photos';
   const memeCreation_URL = serverBase + 'memes';
   
@@ -161,12 +161,12 @@
       contentType: 'application/json',
       success: function () {
         console.log('success');
+        setTimeout(getAndDisplayMemeFeed_top(), 5000);
       },
       error: function (error) {
         console.log(error);
       }
-    }).done(getAndDisplayMemeFeed_top());
-
+    });
     $('.photoBanner').empty();
     $('#dynamicMeme').empty();
     $('#memeCreationPage').addClass('hidden');
