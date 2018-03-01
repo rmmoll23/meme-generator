@@ -277,6 +277,12 @@ label {
 
 @media only screen and (max-width: 480px) {
 
+  select,
+  textarea,
+  input {
+    font-size: 16px;
+  }
+
   #create {
     background-color: white;
     cursor: pointer;
