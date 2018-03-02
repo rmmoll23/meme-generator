@@ -142,7 +142,7 @@ describe('GET endpoint', function() {
 
     it('should update fields you send over', function() {
       const updateData = {
-        liked: 2,
+        liked: 3,
       };
 
       return Meme
