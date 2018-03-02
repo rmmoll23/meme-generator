@@ -144,7 +144,6 @@
       method: 'PUT',
       success: function(data) {
         console.log('success');
-        getAndDisplayPhotoFeed_top();
       }
     });
   }
@@ -181,7 +180,6 @@
       method: 'PUT',
       success: function(data) {
         console.log('success');
-        getAndDisplayMemeFeed_top();
       }
     });
   }
