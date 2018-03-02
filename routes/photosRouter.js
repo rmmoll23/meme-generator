@@ -29,7 +29,7 @@ router.get('/top', (req, res) => {
   });
 
 router.get('/recent', (req, res) => {
-      Photo.find().sort({date: 1})
+      Photo.find().sort({date: -1})
       .then(photos => {
         res.json(photos);
       })
@@ -97,7 +97,7 @@ router.get('/recent', (req, res) => {
       }
     }
   
-    Photo.findByIdAndUpdate(req.params.id, { $inc: {'liked': 1} }, { returnNewDocument: true })
+    Photo.findByIdAndUpdate(req.params.id, { $inc: {'liked': 1} })
       .then(updatedPhoto => res.status(204).end())
       .catch(err => res.status(500).json({ message: 'Something went wrong' }));
   });

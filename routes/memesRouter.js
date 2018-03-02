@@ -29,7 +29,7 @@ router.get('/top', (req, res) => {
   });
 
 router.get('/recent', (req, res) => {
-      Meme.find().sort({date: 1})
+      Meme.find().sort({date: -1})
       .then(memes => {
         res.json(memes);
       })
@@ -96,7 +96,7 @@ router.get('/recent', (req, res) => {
         return res.status(400).send(message);
       }
     }
-    Meme.findByIdAndUpdate(req.params.id, { $inc: {'liked': 1} }, { returnNewDocument: true })
+    Meme.findByIdAndUpdate(req.params.id, { $inc: {'liked': 1} })
       .then(updatedMeme => res.status(204).end())
       .catch(err => res.status(500).json({ message: 'Something went wrong' }));
       console.log(res);

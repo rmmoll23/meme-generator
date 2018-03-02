@@ -15,7 +15,7 @@
         const memeFeedTopTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${meme._id}' src='${meme.memeURL}'>
-            <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i>${meme.liked}</span>
+            <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i><span class='likeCount'>${meme.liked}</span></span>
             <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
             <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
            </div>`;
@@ -38,7 +38,7 @@
         const memeFeedTemplate = 
         `<div class='parent'>
         <img class='mySlides' id='${meme._id}' src='${meme.memeURL}'>
-        <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i>${meme.liked}</span>
+        <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i><span class='likeCount'>${meme.liked}</span></span>
         <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
         <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
        </div>`;
@@ -62,7 +62,7 @@
           `<div class='parent'>
             <div class='photo'>
               <img class='mySlides' id='${photo._id}' src='${photo.photoURL}'>
-              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i><span class='likeCount'>${photo.liked}</span></span>
               <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
               <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
             </div>
@@ -89,7 +89,7 @@
           `<div class='parent'>
             <div class='photo'>
               <img class='mySlides' id='${photo._id}' src='${photo.photoURL}'>
-              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i>${photo.liked}</span>
+              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i><span class='likeCount'>${photo.liked}</span></span>
               <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
               <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
             </div>
@@ -160,7 +160,7 @@
       contentType: 'application/json',
       success: function () {
         console.log('success');
-        setTimeout(getAndDisplayMemeFeed_top(), 5000);
+        setTimeout(getAndDisplayMemeFeed_recent(), 5000);
       },
       error: function (error) {
         console.log(error);
@@ -238,6 +238,13 @@
       }
       const starId = icon.attr('id');
       console.log(starId);
+
+      let likeCount = $(this).parent().find('.likeCount').text();
+      likeCount++;
+      console.log(likeCount);
+      $(this).parent().find('.likeCount').empty();
+      $(this).parent().find('.likeCount').append(likeCount); 
+      
       updatePhoto(starId);
     });
 
@@ -249,6 +256,12 @@
         memeIcon = memeIcon.closest('.clickableMemeIcon');
       }
       const memeId = memeIcon.attr('id');
+      let likeCount = $(this).parent().find('.likeCount').text();
+      likeCount++;
+      console.log(likeCount);
+      $(this).parent().find('.likeCount').empty();
+      $(this).parent().find('.likeCount').append(likeCount); 
+      
       console.log(memeId);
       updateMeme(memeId);
     });
