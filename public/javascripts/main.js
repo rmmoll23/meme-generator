@@ -160,6 +160,7 @@
       contentType: 'application/json',
       success: function () {
         console.log('success');
+        alert("Meme submitted successfully!"); 
         setTimeout(getAndDisplayMemeFeed_recent(), 5000);
       },
       error: function (error) {
