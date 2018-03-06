@@ -110,7 +110,7 @@
     console.log('Retrieving photo to display')
     const photoChoice_URL = photoSelection_URL + '/' + id;
     $.getJSON(photoChoice_URL, function(photo) {
-      const memeTemplate = `<div id='dynamicMeme'><h1>Create your Meme</h1>
+      const memeTemplate = `<div id='dynamicMeme'><h1 class='memeHeader'>Create your Meme</h1>
       <div class='imgChoice'>
       <div class='memeContainer' style='background-image: url(${photo.photoURL})'>
       <div id='textBox'>hello</div></div></div>
