@@ -501,12 +501,24 @@ label {
     border-top: black solid 1px;
     padding-top: 5px;
     width: 90%;
-    margin: 10px auto 5px auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 #memeSubmit {
   margin-top: 5px;
   font-weight: bold;
+}
+
+#textBox {
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  padding-top: 10px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 }
