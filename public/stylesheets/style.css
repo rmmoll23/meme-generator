@@ -231,6 +231,10 @@ li {
   text-align: center;
 }
 
+#textBox {
+  font-family: initial;
+}
+
 .imgChoice {
   width: 70%;
   height: 350px;
