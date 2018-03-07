@@ -95,15 +95,7 @@ describe('GET endpoint', function() {
             expect(meme).to.include.keys(
               '_id', 'memeURL', 'liked', 'date');
           });
-  //         resMeme = res.body[0];
-  //         return Meme.findById(resMeme.id);
         })
-  //       .then(function(Meme) {
-
-  //         expect(resMeme.memeURL).to.equal(meme.memeURL);
-  //         expect(resMeme.liked).to.equal(meme.liked);
-  //         expect(resMeme.date).to.equal(meme.date);
-  //       });
     });
   });
 
@@ -119,22 +111,18 @@ describe('GET endpoint', function() {
         .then(function(res) {
           expect(res).to.have.status(201);
           expect(res).to.be.json;
-          // expect(res.body).to.be.a('object');
-          // expect(res.body).to.include.keys(
-          //   'id', 'memeURL', 'liked', 'date');
-          // expect(res.body.memeURL).to.equal(newMeme.memeURL);
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.include.keys(
+            '_id', 'memeURL', 'liked', 'date');
+          expect(res.body.memeURL).to.equal(newMeme.memeURL);
           // cause Mongo should have created id on insertion
-          // expect(res.body.id).to.not.be.null;
-          // expect(res.body.liked).to.equal(newMeme.liked);
-          // expect(res.body.date).to.equal(newMeme.date);
+          expect(res.body._id).to.not.be.null;
 
-          // return Meme.findById(res.body.id);
+          return Meme.findById(res.body._id);
         })
-        // .then(function(Meme) {
-        //   expect(Meme.memeURL).to.equal(newMeme.memeURL);
-        //   expect(Meme.liked).to.equal(newMeme.liked);
-        //   expect(Meme.date).to.equal(newMeme.date);
-        // });
+        .then(function(Meme) {
+          expect(Meme.memeURL).to.equal(newMeme.memeURL);
+        });
     });
   });
 

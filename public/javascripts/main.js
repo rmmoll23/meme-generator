@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
   
   const serverBase = 'https://meme-generator-capstone.herokuapp.com/';
   // const serverBase = '//localhost:8080/';
@@ -15,9 +15,9 @@
         const memeFeedTopTemplate = 
           `<div class='parent'>
             <img class='mySlides' id='${meme._id}' src='${meme.memeURL}'>
-            <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i><span class='likeCount'>${meme.liked}</span></span>
-            <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-            <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+            <span tabIndex=2 aria-label='Click if you like this meme' class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i><span class='likeCount'>${meme.liked}</span></span>
+            <button tabIndex=1 aria-label='Click to move left through the meme feed' class='navButtons' id='displayLeft' onclick='plusDivs(-1)'>&#10094;</button>
+            <button tabIndex=1 aria-label='Click to move right through the meme feed' class='navButtons' id='displayRight' onclick='plusDivs(1)'>&#10095;</button>
            </div>`;
         return memeFeedTopTemplate;
       })
@@ -38,9 +38,9 @@
         const memeFeedTemplate = 
         `<div class='parent'>
         <img class='mySlides' id='${meme._id}' src='${meme.memeURL}'>
-        <span tabIndex=2 aria-label="Click if you like this meme" class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i><span class='likeCount'>${meme.liked}</span></span>
-        <button tabIndex=1 aria-label="Click to move left through the meme feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-        <button tabIndex=1 aria-label="Click to move right through the meme feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+        <span tabIndex=2 aria-label='Click if you like this meme' class='clickableMemeIcon' id='${meme._id}'><i class='far fa-star'></i><span class='likeCount'>${meme.liked}</span></span>
+        <button tabIndex=1 aria-label='Click to move left through the meme feed' class='navButtons' id='displayLeft' onclick='plusDivs(-1)'>&#10094;</button>
+        <button tabIndex=1 aria-label='Click to move right through the meme feed' class='navButtons' id='displayRight' onclick='plusDivs(1)'>&#10095;</button>
        </div>`;
         return memeFeedTemplate;
       })
@@ -62,9 +62,9 @@
           `<div class='parent'>
             <div class='photo'>
               <img class='mySlides' id='${photo._id}' src='${photo.photoURL}'>
-              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i><span class='likeCount'>${photo.liked}</span></span>
-              <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-              <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+              <span tabIndex=2 aria-label='Click if you like this photo' class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i><span class='likeCount'>${photo.liked}</span></span>
+              <button tabIndex=1 aria-label='Click to move left through the photo feed' class='navButtons' id='displayLeft' onclick='plusDivs(-1)'>&#10094;</button>
+              <button tabIndex=1 aria-label='Click to move right through the photo feed' class='navButtons' id='displayRight' onclick='plusDivs(1)'>&#10095;</button>
             </div>
             <button class='selectPhotoButton' id='${photo._id}' type='button'>Create meme with this photo</button>
            </div>`;
@@ -89,9 +89,9 @@
           `<div class='parent'>
             <div class='photo'>
               <img class='mySlides' id='${photo._id}' src='${photo.photoURL}'>
-              <span tabIndex=2 aria-label="Click if you like this photo" class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i><span class='likeCount'>${photo.liked}</span></span>
-              <button tabIndex=1 aria-label="Click to move left through the photo feed" class="navButtons" id="displayLeft" onclick="plusDivs(-1)">&#10094;</button>
-              <button tabIndex=1 aria-label="Click to move right through the photo feed" class="navButtons" id="displayRight" onclick="plusDivs(1)">&#10095;</button>
+              <span tabIndex=2 aria-label='Click if you like this photo' class='clickableIcon' id='${photo._id}'><i class='far fa-star'></i><span class='likeCount'>${photo.liked}</span></span>
+              <button tabIndex=1 aria-label='Click to move left through the photo feed' class='navButtons' id='displayLeft' onclick='plusDivs(-1)'>&#10094;</button>
+              <button tabIndex=1 aria-label='Click to move right through the photo feed' class='navButtons' id='displayRight' onclick='plusDivs(1)'>&#10095;</button>
             </div>
             <button class='selectPhotoButton' id='${photo._id}' type='button'>Create meme with this photo</button>
           </div>`;
@@ -160,7 +160,7 @@
       contentType: 'application/json',
       success: function () {
         console.log('success');
-        alert("Meme submitted successfully!"); 
+        alert('Meme submitted successfully!'); 
         setTimeout(getAndDisplayMemeFeed_recent(), 5000);
       },
       error: function (error) {
@@ -316,7 +316,7 @@
     $('#memeCreationPage').on('click', '.submitMemeButton', function(){
       event.preventDefault();
       console.log('snapshot');
-      html2canvas(document.querySelector(".memeContainer")).then(canvas => {
+      html2canvas(document.querySelector('.memeContainer')).then(canvas => {
         const memeDataURL = canvas.toDataURL();
         addMeme(memeDataURL);
       });
@@ -344,13 +344,13 @@
       getAndDisplayMemeFeed_top();
     });
 
-    $(".memeBanner").on("keyup", ".clickableIcon", function(event) {
+    $('.memeBanner').on('keyup', '.clickableIcon', function(event) {
       if (event.keyCode === 13) {
         $(this).click();
       }
     });
 
-    $(".photoBanner").on("keyup", ".clickableIcon", function(event) {
+    $('.photoBanner').on('keyup', '.clickableIcon', function(event) {
       if (event.keyCode === 13) {
         $(this).click();
       }

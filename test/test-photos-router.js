@@ -95,15 +95,7 @@ describe('GET endpoint', function() {
             expect(photo).to.include.keys(
               '_id', 'photoURL', 'liked', 'date');
           });
-        //   resPhoto = res.body[0];
-        //   return Photo.findById(resPhoto.id);
         })
-    //     .then(function(Photo) {
-
-    //       expect(resPhoto.photoURL).to.equal(photo.photoURL);
-    //       expect(resPhoto.liked).to.equal(photo.liked);
-    //       expect(resPhoto.date).to.equal(photo.date);
-    //     });
     });
   });
 
