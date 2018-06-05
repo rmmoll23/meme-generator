@@ -31,6 +31,13 @@
 
 <body>
  <main role="main" class="home">
+    <nav role="nav">
+        <h1 id="appTitle">Meme Generator</h1>
+        <ul class="homeLink">
+            <li class="navItems"><span class="hidden" aria-label="Click to go to Home Page" tabIndex=2 id="navBarMemePageToHome">Home</span></li>
+            <li class="navItems"><span class="hidden" aria-label="Click to go to Photo Selection Page"tabIndex=2 id="navBarMemePageToPhoto">Photo Selection Page</span></li>
+        </ul>
+    </nav>
    
     <div id="homePage">
         <h1 id="memeHeader" tabIndex=1 aria-label="Meme Generator Home Page">Check out all of the top and most recent memes created<button tabIndex=1 aria-label="Filter between the top memes feed and the most recent memes feed" type="button" id="memeFilter"><span id="top" class="selectedFilter">Top</span>/<span id="recent">Recent</span></button></h1>
@@ -52,18 +59,11 @@
         <input type="text" name="pic" id="newPhoto">
         <button class="submit" type="submit">Submit</button>
         </form> -->
-        <div>
-            <p class="homeLink"><span aria-label="Click to go to Home Page" tabIndex=2 id="navBarPhotoPage">Home</span></p>
-        </div>
+        
     </div>
         
     <div id="memeCreationPage" class="hidden">
-        <div>
-            <ul class="homeLink">
-                <li class="navItems"><span aria-label="Click to go to Home Page" tabIndex=2 id="navBarMemePageToHome">Home</span></li>
-                <li class="navItems"><span aria-label="Click to go to Photo Selection Page"tabIndex=2 id="navBarMemePageToPhoto">Photo Selection Page</span></li>
-            </ul>
-        </div>  
+          
     </div>
 
     <script
@@ -76,8 +76,8 @@
     <script src="../javascripts/main.js"></script>
  </main>
  <footer role="contentinfo">
+    <p id="copyright">© 2018 Ryan Moll</p>
     <ul>
-        <li><p id="copyright">© 2018 Ryan Moll</p></li>
         <li><a href="mailto:rmmoll23@gmail.com?Subject=Hello" title="Send me an email">Email</a></li>
         <li><a href="https://www.linkedin.com/in/ryan-moll-a876ba70/" target="_blank">LinkedIn</a></li>
         <li><a href="https://github.com/rmmoll23" title="Check out my code on GitHub" target="_blank">GitHub</a></li>

@@ -16,7 +16,7 @@ PhotoSchema.methods.serialize = function() {
     id: this._id,
     photoURL: this.photoURL,
     liked: this.liked,
-    date: this.date,
+    date: this.date
   };
 };
 
@@ -25,7 +25,7 @@ const Photo = mongoose.model('Photo', PhotoSchema);
 const MemeSchema = mongoose.Schema({
     memeURL: {type: String, required: true},
     liked: {type: Number},
-    date: {type: Date, default: Date.now},
+    date: {type: Date, default: Date.now}
   });
   
   
@@ -34,7 +34,7 @@ const MemeSchema = mongoose.Schema({
       id: this._id,
       memeURL: this.memeURL,
       liked: this.liked,
-      date: this.date,
+      date: this.date
     };
   };
   

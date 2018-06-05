@@ -1,7 +1,7 @@
 'use strict';
   
-  const serverBase = 'https://meme-generator-capstone.herokuapp.com/';
-  // const serverBase = '//localhost:8080/';
+  // const serverBase = 'https://meme-generator-capstone.herokuapp.com/';
+  const serverBase = '//localhost:8080/';
   const photoSelection_URL = serverBase + 'photos';
   const memeCreation_URL = serverBase + 'memes';
   
@@ -208,6 +208,8 @@
     $('.home').on('click', '#create', function(event) {
       $('#homePage').addClass('hidden');
       $('#photoSelectionPage').removeClass('hidden');
+      $('#navBarMemePageToHome').removeClass('hidden');
+      $('#navBarMemePageToPhoto').removeClass('hidden');
       getAndDisplayPhotoFeed_top();
     });
   
@@ -231,7 +233,7 @@
     //   $('#memeCreationPage').removeClass('hidden');
     // });
 
-    $('.photoBanner').on('click', '.clickableIcon', function(){
+    $('.photoBanner').on('click', '.clickableIcon', function(event){
       console.log('liked');
       let icon = $(event.target);
       if (!icon.hasClass('clickableIcon')) {
@@ -249,8 +251,9 @@
       updatePhoto(starId);
     });
 
-    $('.memeBanner').on('click', '.clickableMemeIcon', function(){
+    $('.memeBanner').on('click', '.clickableMemeIcon', function(event){
       console.log('liked');
+      console.log(event);
       let memeIcon = $(event.target);
       console.log(memeIcon);
       if (!memeIcon.hasClass('clickableMemeIcon')) {
@@ -267,7 +270,7 @@
       updateMeme(memeId);
     });
 
-    $('.photoBanner').on('click', '.selectPhotoButton', function(){
+    $('.photoBanner').on('click', '.selectPhotoButton', function(event){
       const buttonId = $(event.target).attr('id');
       console.log(buttonId);
       getAndDisplayPhotoById(buttonId);
@@ -313,7 +316,7 @@
       }
     })
 
-    $('#memeCreationPage').on('click', '.submitMemeButton', function(){
+    $('#memeCreationPage').on('click', '.submitMemeButton', function(event){
       event.preventDefault();
       console.log('snapshot');
       html2canvas(document.querySelector('.memeContainer')).then(canvas => {
@@ -325,8 +328,11 @@
     $('#navBarMemePageToHome').click(function() {
       console.log('first');
       $('#memeCreationPage').addClass('hidden');
+      $('#photoSelectionPage').addClass('hidden');
       $('#homePage').removeClass('hidden');
       $('.photoBanner').empty();
+      $('#navBarMemePageToHome').addClass('hidden');
+      $('#navBarMemePageToPhoto').addClass('hidden');
       getAndDisplayMemeFeed_top();
     });
 
@@ -334,14 +340,6 @@
       $('#memeCreationPage').addClass('hidden');
       $('#photoSelectionPage').removeClass('hidden');
       $('#dynamicMeme').empty();
-    });
-
-    $('#navBarPhotoPage').click(function() {
-      console.log('second');
-      $('#photoSelectionPage').addClass('hidden');
-      $('#homePage').removeClass('hidden');
-      $('.photoBanner').empty();
-      getAndDisplayMemeFeed_top();
     });
 
     $('.memeBanner').on('keyup', '.clickableIcon', function(event) {
